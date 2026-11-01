@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* Design tokens. Brand blue sampled from the IT Together logo (#1868db). */
+@theme static {
+  --color-void: #05070b;
+  --color-navy: #0a1220;
+  --color-navy-2: #111c30;
+  --color-ink: #0d1524;
+  --color-paper: #f4f6f8;
+  --color-brand: #1868db;
+  --color-brand-2: #5b9bff;
+  --color-glow: #8be8ff;
+  --color-muted: #94a3b8;
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-line-dark: rgb(13 21 36 / 0.1);
+
+  /* One accent per outcome, used across hero, chapters and services. */
+  --color-grow: #5ee6ff;
+  --color-serve: #5b9bff;
+  --color-run: #a596ff;
+
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-heading), var(--font-body), system-ui, sans-serif;
+
+}
+
+/* 18px base: every rem-based size is ~12% larger, readable from a desk. */
+html { scroll-behavior: smooth; font-size: 112.5%; }
+
+body {
+  background: var(--color-void);
+  color: #f7f9fc;
+}
+
+/* Micro-label used for eyebrows, kickers and tags. */
+.label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.shell {
+  width: min(1280px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+/* Reveal on scroll with native scroll-driven animations; browsers without
+   support (or reduced motion) simply show the content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(32px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orch-flow { animation: none; opacity: 0 !important; }
+  .core-ring { animation: none; }
+}
+
+/* Process line draws itself as the section scrolls through. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .draw-line {
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 55%;
+    }
+  }
+}
+@keyframes draw {
+  from { transform: scaleX(0); }
+}
+@media (max-width: 1023px) {
+  @keyframes draw { from { transform: scaleY(0); } }
+}
+
+/* FAQ: animate <details> open/close where supported. */
+:root { interpolate-size: allow-keywords; }
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+}
+details[open]::details-content { block-size: auto; }
+
+/* ScrollStory: pinned + scrubbed only on desktop with motion allowed
+   (must match SCRUB_QUERY in ScrollStory.tsx). Elsewhere: normal flow. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  [data-story] { height: calc(var(--screens) * 100svh); }
+  [data-story-sticky] { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  [data-beats] { display: grid; }
+  [data-beats] > [data-beat] { grid-area: 1 / 1; }
+  [data-beat]:not([data-beat="0"]) { opacity: 0; visibility: hidden; }
+  [data-scrub-step] { opacity: 0.25; }
+  [data-scrub-bar] { transform: scaleY(0); }
+  [data-scrub-bar-x] { transform: scaleX(0); }
+}
+[data-dot][data-active] { background: var(--color-glow); width: 2rem; }
+
+dialog::backdrop {
+  background: rgb(5 7 11 / 0.75);
+  backdrop-filter: blur(6px);
+}
+
+/* Tech backdrop: faint grid that fades out at the edges. */
+.tech-grid {
+  background-image:
+    linear-gradient(rgb(139 232 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(139 232 255 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* HUD frame: corner brackets on a panel. */
+.hud { position: relative; }
+.hud::before, .hud::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--color-glow);
+  pointer-events: none;
+}
+.hud::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; border-top-left-radius: inherit; }
+.hud::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; border-bottom-right-radius: inherit; }
+
+/* Orchestration diagram: final state by default (no JS / mobile / reduced motion);
+   OrchestrationDiagram.tsx drives --c, --l, --o from scroll on desktop. */
+.orch { --c: 1; --l: 1; --o: 1; }
+.orch-flow {
+  fill: none;
+  stroke-dasharray: 0.08 0.92;
+  animation: flow 1.6s linear infinite;
+}
+@keyframes flow {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Orchestration core rings (after the reference site's business core). */
+.core-ring {
+  position: absolute;
+  border: 1px solid rgb(102 181 255 / 0.34);
+  border-radius: 50%;
+  animation: spin 34s linear infinite;
+}

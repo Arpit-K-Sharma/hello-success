@@ -1,0 +1,413 @@
+import Image from "next/image";
+import { site } from "@/content/site";
+import { outcomes, type Outcome } from "@/content/services";
+import { ContactForm } from "@/components/ContactForm";
+import { Header, MobileCta } from "@/components/Header";
+import { HeroVisual } from "@/components/HeroVisual";
+import { Inbox } from "@/components/Inbox";
+import { Orchestration } from "@/components/Orchestration";
+import { ScrollStory } from "@/components/ScrollStory";
+import { ServiceCatalogue } from "@/components/ServiceCatalogue";
+import { ButtonLink, Eyebrow, Icon, Lockup } from "@/components/ui";
+
+const H2 = "font-display text-4xl font-semibold tracking-tight sm:text-6xl";
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Problem />
+        <Orchestration />
+        <OutcomesIntro />
+        {outcomes.map((o, i) => (
+          <OutcomeChapter key={o.id} outcome={o} index={i} />
+        ))}
+        <Services />
+        <Process />
+        <Results />
+        <PoweredBy />
+        <Faq />
+        <Contact />
+      </main>
+      <Footer />
+      <MobileCta />
+    </>
+  );
+}
+
+function Hero() {
+  const { hero } = site;
+  return (
+    <ScrollStory id="top" screens={4} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
+      <div className="relative flex h-full flex-col">
+        <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 lg:motion-safe:py-0">
+          <div data-beats className="max-w-2xl space-y-14 lg:motion-safe:space-y-0">
+            <div data-beat="0" className="space-y-8">
+              <Eyebrow>{hero.eyebrow}</Eyebrow>
+              <h1 className="font-display text-5xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
+                {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
+                <br />
+                <span className="text-white/70">{hero.title[2]}</span>
+              </h1>
+              <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
+              <div className="flex flex-wrap gap-3">
+                <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
+                <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
+              </div>
+            </div>
+            {hero.beats.map((b, i) => (
+              <div key={b.kicker} data-beat={i + 1} className="space-y-6">
+                <Eyebrow>{b.kicker}</Eyebrow>
+                <h2 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight sm:text-6xl">{b.heading}</h2>
+                <p className="max-w-lg text-xl text-white/80">{b.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative h-[60svh] lg:motion-safe:absolute lg:motion-safe:inset-y-0 lg:motion-safe:right-0 lg:motion-safe:left-[35%] lg:motion-safe:h-auto">
+          <HeroVisual />
+        </div>
+      </div>
+    </ScrollStory>
+  );
+}
+
+function Problem() {
+  const p = site.problem;
+  return (
+    <section className="bg-paper text-ink overflow-clip py-28">
+      <div className="shell grid items-center gap-16 lg:grid-cols-[1fr_1.15fr]">
+        <div className="space-y-10">
+          <div className="reveal space-y-5">
+            <p className="label text-brand">{p.eyebrow}</p>
+            <h2 className={H2}>{p.title}</h2>
+            <p className="text-ink/75 text-xl">{p.body}</p>
+          </div>
+          <dl className="divide-line-dark border-line-dark divide-y border-y">
+            {p.costs.map((c) => (
+              <div key={c.stat} className="reveal grid grid-cols-[7.5rem_1fr] items-center gap-6 py-5">
+                <dt className="font-display text-5xl font-semibold text-red-600">{c.stat}</dt>
+                <dd className="text-ink/80 text-lg">{c.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <Inbox />
+      </div>
+
+      <p className="reveal shell font-display mt-24 max-w-4xl text-center text-3xl leading-snug font-medium sm:text-5xl">
+        {p.closer[0]} <span className="text-brand">{p.closer[1]}</span> {p.closer[2]}
+      </p>
+    </section>
+  );
+}
+
+function OutcomesIntro() {
+  return (
+    <section id="outcomes" className="pt-28 pb-12 lg:pb-0">
+      <div className="shell reveal space-y-8 text-center">
+        <Eyebrow>How it works</Eyebrow>
+        <h2 className={`${H2} mx-auto max-w-4xl`}>Three outcomes. One connected system.</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {outcomes.map((o) => (
+            <a key={o.id} href={`#${o.id}`} className="font-display rounded-full border border-current/50 px-7 py-3 text-lg font-semibold transition hover:bg-white/5" style={{ color: `var(--color-${o.id})` }}>
+              {o.verb}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OutcomeChapter({ outcome: o, index }: { outcome: Outcome; index: number }) {
+  const accent = { "--accent": `var(--color-${o.id})` } as React.CSSProperties;
+  const layers = [
+    ["Process", o.layers.process],
+    ["Platform", o.layers.platform],
+    ["AI", o.layers.ai],
+  ];
+  return (
+    <ScrollStory id={o.id} screens={2.5}>
+      {/* Pinned: content starts below the sticky header (pt-28) so nothing tucks under it. */}
+      <div style={accent} className="shell grid h-full items-center gap-12 py-20 lg:grid-cols-[1fr_1.1fr] lg:gap-14 lg:motion-safe:pt-28 lg:motion-safe:pb-10">
+        <div className="space-y-6">
+          <p className="label text-(--accent)">0{index + 1} · {o.verb}</p>
+          <h2 className="font-display text-4xl leading-[1.05] font-semibold tracking-tight xl:text-5xl">{o.title}</h2>
+          <p className="text-xl text-white/80">{o.promise}</p>
+          <p className="border-l-2 border-(--accent) pl-5 text-lg text-white/70 italic">“{o.problem}”</p>
+          <dl className="divide-y divide-white/10 border-y border-line">
+            {layers.map(([k, v]) => (
+              <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 py-3 text-lg">
+                <dt className="label text-(--accent) pt-1">{k}</dt>
+                <dd className="text-white/85">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <a href={`#start-${o.id}`} className="font-display inline-flex items-center gap-2 text-lg font-semibold text-(--accent) hover:underline">
+            Start with {o.verb} <Icon name="arrow" className="size-5" />
+          </a>
+        </div>
+
+        <div className="rounded-3xl border border-line bg-navy/80 p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="label text-white/60">Workflow</p>
+            <p className="label flex items-center gap-2 text-(--accent)">
+              <span className="size-2 animate-pulse rounded-full bg-(--accent)" /> Live
+            </p>
+          </div>
+          <ol className="relative space-y-1">
+            <span className="absolute top-6 bottom-6 left-6 w-px bg-white/10" aria-hidden />
+            <span data-scrub-bar className="absolute top-6 bottom-6 left-6 w-px origin-top bg-(--accent)" aria-hidden />
+            {o.flow.map((f, i) => (
+              <li key={f.label} data-scrub-step className="relative flex gap-5 rounded-2xl p-2">
+                <span className="font-display relative grid size-12 shrink-0 place-items-center rounded-full border border-(--accent) bg-navy text-lg font-semibold text-(--accent)">
+                  {i + 1}
+                </span>
+                <span>
+                  <span className="font-display text-xl font-semibold">{f.label}</span>
+                  <span className="block text-lg text-white/70">{f.detail}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <div data-scrub-step className="mt-4 flex items-baseline gap-4 rounded-2xl bg-white/5 px-5 py-4">
+            <p className="font-display text-5xl font-semibold text-(--accent)">{o.result.value}</p>
+            <p className="text-lg text-white/80">{o.result.label}</p>
+          </div>
+        </div>
+      </div>
+    </ScrollStory>
+  );
+}
+
+function Services() {
+  return (
+    <ScrollStory id="services" screens={7} className="bg-[radial-gradient(circle_at_50%_60%,#0f2a52_0,var(--color-void)_60%)]">
+      <div className="tech-grid absolute inset-0" aria-hidden />
+      <div className="shell relative z-10 space-y-4 pt-28 pb-14 lg:motion-safe:pb-0">
+        <Eyebrow>Services</Eyebrow>
+        <h2 className={H2}>Six ways we help.</h2>
+        <p className="max-w-xl text-xl text-white/75">Each one stands alone or combines into one program.</p>
+      </div>
+      <ServiceCatalogue />
+    </ScrollStory>
+  );
+}
+
+function Process() {
+  return (
+    <ScrollStory id="process" screens={3} hold={0.6}>
+      <div className="tech-grid absolute inset-0" aria-hidden />
+      <div className="shell relative flex h-full flex-col justify-center py-28 lg:motion-safe:pt-24 lg:motion-safe:pb-10">
+        <div className="mb-20 max-w-3xl space-y-5">
+          <Eyebrow>Our process</Eyebrow>
+          <h2 className={H2}>Process first. Technology second.</h2>
+          <p className="text-xl text-white/75">One team and one thread of accountability, from the first conversation to the next improvement.</p>
+        </div>
+        <ol className="relative grid gap-12 lg:grid-cols-6 lg:gap-6">
+          {/* Mobile: vertical line drawn by CSS. Desktop: thick bar filled by scroll, with a glowing head. */}
+          <span className="absolute top-0 bottom-0 left-6 w-px bg-white/10 lg:hidden" aria-hidden />
+          <span className="draw-line from-grow via-serve to-run absolute top-0 bottom-0 left-6 w-0.5 origin-top bg-linear-to-b lg:hidden" aria-hidden />
+          <span className="absolute top-[1.375rem] right-0 left-0 hidden h-1 rounded-full bg-white/10 lg:block" aria-hidden>
+            <span data-scrub-bar-x className="from-grow via-serve to-run absolute inset-0 origin-left rounded-full bg-linear-to-r shadow-[0_0_24px_2px] shadow-glow/60" />
+            <span data-scrub-head className="absolute top-1/2 hidden size-5 -translate-1/2 rounded-full bg-white shadow-[0_0_24px_8px] shadow-glow lg:motion-safe:block" />
+          </span>
+          {site.process.map((p, i) => (
+            <li key={p.step} data-scrub-step className="relative pl-20 lg:pt-20 lg:pl-0">
+              <span className="font-display bg-void text-glow border-glow/60 absolute top-0 left-0 grid size-12 place-items-center rounded-full border text-lg font-semibold shadow-[0_0_30px_-6px] shadow-glow">
+                {i + 1}
+              </span>
+              <h3 className="font-display text-2xl font-semibold">{p.step}</h3>
+              <p className="mt-2 text-lg text-white/75">{p.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </ScrollStory>
+  );
+}
+
+function Results() {
+  return (
+    <section id="results" className="relative overflow-clip bg-navy py-28">
+      <div className="shell space-y-20">
+        <div className="reveal max-w-3xl space-y-5">
+          <Eyebrow>Results</Eyebrow>
+          <h2 className={H2}>Numbers our clients now report to their boards.</h2>
+        </div>
+
+        <dl className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
+          {site.stats.map((s) => (
+            <div key={s.label} className="reveal">
+              <dt className="font-display from-glow to-brand-2 bg-linear-to-br bg-clip-text text-6xl font-semibold text-transparent sm:text-8xl">{s.value}</dt>
+              <dd className="mt-3 text-lg text-white/75">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {site.caseStudies.map((c) => (
+            <article
+              key={c.client}
+              style={{ "--accent": `var(--color-${c.outcome})` } as React.CSSProperties}
+              className="reveal relative overflow-hidden rounded-3xl border border-line bg-void p-8"
+            >
+              <span className="bg-(--accent) absolute inset-x-0 top-0 h-1" aria-hidden />
+              <p className="label text-(--accent)">{outcomes.find((o) => o.id === c.outcome)?.verb}</p>
+              <div className="font-display mt-6 flex items-baseline gap-4">
+                <span className="text-3xl whitespace-nowrap text-white/45 line-through decoration-1">{c.before}</span>
+                <Icon name="arrow" className="size-6 shrink-0 self-center text-white/50" />
+                <span className="text-5xl font-semibold whitespace-nowrap text-(--accent)">{c.after}</span>
+              </div>
+              <p className="mt-2 text-xl font-medium">{c.metric}</p>
+              <p className="mt-6 text-lg text-white/70">{c.summary}</p>
+              <p className="label mt-6 border-t border-line pt-5 text-white/60">{c.client} · {c.sector}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {site.testimonials.map((t) => (
+            <figure key={t.name} className="reveal flex flex-col justify-between gap-8 border-l-2 border-brand-2 pl-6">
+              <blockquote className="font-display text-2xl leading-snug">“{t.quote}”</blockquote>
+              <figcaption className="flex items-center gap-4">
+                <Image src={t.avatar} alt="" width={56} height={56} className="size-14 rounded-full object-cover" />
+                <span>
+                  <span className="block text-lg font-medium">{t.name}</span>
+                  <span className="text-white/65">{t.role}</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PoweredBy() {
+  const t = site.itTogether;
+  return (
+    <section className="py-16" aria-label={t.eyebrow}>
+      <div className="shell reveal hud flex flex-col gap-6 rounded-3xl border border-brand/50 bg-brand/10 px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:gap-10">
+        <div className="flex shrink-0 items-center gap-4">
+          <p className="label text-white/70">Powered by</p>
+          <Image src="/brand/itt-horizontal-white.png" alt="IT Together" width={657} height={94} className="h-7 w-auto" />
+        </div>
+        <p className="text-lg text-white/85 lg:border-l lg:border-line lg:pl-10">{t.text}</p>
+        <ul className="flex flex-wrap gap-2 lg:ml-auto lg:max-w-md lg:justify-end">
+          {t.proof.map((p) => (
+            <li key={p} className="flex items-center gap-2 rounded-full border border-line bg-void/50 px-3 py-1.5 text-white/85">
+              <Icon name="check" className="text-glow size-4" />
+              {p}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Faq() {
+  return (
+    <section id="faq" className="scroll-mt-16 py-28">
+      <div className="shell grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+        <div className="reveal space-y-6 lg:sticky lg:top-28 lg:self-start">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">Questions we hear often.</h2>
+          <p className="text-xl text-white/75">Something else on your mind? Ask it on the call.</p>
+          <ButtonLink href={site.cta.href} variant="ghost">{site.cta.label}</ButtonLink>
+        </div>
+        <div className="space-y-3">
+          {site.faqs.map((f, i) => (
+            <details key={f.q} className="group rounded-3xl border border-line bg-navy transition open:border-brand-2/50 open:bg-navy-2">
+              <summary className="flex cursor-pointer list-none items-center gap-5 p-6 sm:p-7">
+                <span className="label text-glow">0{i + 1}</span>
+                <span className="font-display grow text-xl font-semibold sm:text-2xl">{f.q}</span>
+                <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line text-xl transition group-open:rotate-45 group-open:border-brand-2 group-open:bg-brand" aria-hidden>+</span>
+              </summary>
+              <p className="px-6 pb-7 text-lg text-white/80 sm:pl-[4.75rem]">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  const c = site.contact;
+  const d = site.discovery;
+  return (
+    <section id="contact" className="scroll-mt-16 bg-[radial-gradient(circle_at_15%_20%,rgb(24_104_219/0.35),transparent_45%)] py-28">
+      <div className="shell grid gap-14 lg:grid-cols-[1fr_1.3fr]">
+        {/* Left: why and what happens next. Sticky so it stays beside the form. */}
+        <div className="space-y-10 lg:sticky lg:top-28 lg:self-start">
+          <div className="space-y-6">
+            <Eyebrow>{d.eyebrow}</Eyebrow>
+            <h2 className="font-display text-5xl leading-[0.95] font-semibold tracking-tight sm:text-6xl">
+              {d.title[0]} <span className="text-brand-2">{d.title[1]}</span>
+            </h2>
+            <p className="text-xl text-white/80">{d.body}</p>
+          </div>
+          <ol className="space-y-5">
+            {d.next.map((n, i) => (
+              <li key={n.title} className="flex gap-4">
+                <span className="font-display border-glow/60 text-glow grid size-10 shrink-0 place-items-center rounded-full border">{i + 1}</span>
+                <span>
+                  <span className="font-display block text-xl font-semibold">{n.title}</span>
+                  <span className="text-lg text-white/70">{n.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <div className="space-y-1 border-t border-line pt-6 text-lg text-white/85">
+            <p className="label mb-2 text-white/55">Prefer to talk now?</p>
+            {[
+              { icon: "phone", href: `tel:${c.phone.replace(/\s/g, "")}`, label: c.phone },
+              { icon: "mail", href: `mailto:${c.email}`, label: c.email },
+            ].map((l) => (
+              <a key={l.icon} href={l.href} className="flex items-center gap-3 py-1 hover:text-white">
+                <span className="grid size-9 place-items-center rounded-full border border-line bg-white/5"><Icon name={l.icon as "phone"} className="size-4" /></span>
+                {l.label}
+              </a>
+            ))}
+            <p className="pt-1 pl-12 text-white/60">{c.location}</p>
+          </div>
+        </div>
+        <ContactForm />
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-line py-14">
+      <div className="shell flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-3">
+          <Lockup />
+          <p className="text-white/60">AI automation · Connected systems · Better processes</p>
+        </div>
+        <nav aria-label="Footer" className="flex flex-wrap gap-6 text-white/75">
+          {site.nav.map((n) => <a key={n.href} href={n.href} className="hover:text-white">{n.label}</a>)}
+          <a href="#contact" className="hover:text-white">Contact</a>
+        </nav>
+      </div>
+      <div className="shell mt-10 flex items-center justify-between gap-6">
+        <p className="text-white/50">© 2026 Hello Success × IT Together</p>
+        <a href={site.contact.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="rounded-md transition hover:opacity-80">
+          {/* LinkedIn brand mark: blue square, white "in". */}
+          <svg viewBox="0 0 24 24" className="size-9" aria-hidden>
+            <rect width="24" height="24" rx="4" fill="#0A66C2" />
+            <path fill="#fff" d="M7.1 9.4H4.6V19h2.5V9.4ZM5.85 5a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9ZM19.4 13.7c0-2.6-1.4-4.5-3.9-4.5-1.3 0-2.2.7-2.6 1.4V9.4h-2.4V19H13v-5c0-1.3.4-2.5 1.9-2.5s1.6 1.4 1.6 2.6V19h2.9v-5.3Z" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  );
+}
