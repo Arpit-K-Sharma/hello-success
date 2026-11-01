@@ -226,51 +226,53 @@ function OutcomeChapter({ outcome: o, index }: { outcome: Outcome; index: number
   ];
   return (
     <ScrollStory screens={2.5}>
-      {/* Pinned: content starts below the sticky header (pt-28) so nothing tucks under it. */}
-      <div style={accent} className="shell grid h-full items-center gap-12 py-10 sm:py-16 lg:grid-cols-[1fr_1.1fr] lg:gap-14 story:pt-28 story:pb-10">
-        <div className="space-y-6">
-          <p className="label text-(--accent)">0{index + 1} · {o.verb}</p>
-          <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-tight sm:text-4xl xl:text-5xl">{o.title}</h2>
-          <p className="text-xl text-white/80">{o.promise}</p>
-          <p className="hidden border-l-2 border-(--accent) pl-5 text-lg text-white/70 italic story:block">“{o.problem}”</p>
-          <dl className="hidden divide-y divide-white/10 border-y border-line story:block">
-            {layers.map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 py-3 text-lg">
-                <dt className="label text-(--accent) pt-1">{k}</dt>
-                <dd className="text-white/85">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <a href={`#start-${o.id}`} className="font-display inline-flex items-center gap-2 text-lg font-semibold text-(--accent) hover:underline">
-            Start with {o.verb} <Icon name="arrow" className="size-5" />
-          </a>
-        </div>
-
-        <div className="hidden rounded-3xl border border-line bg-navy/80 p-6 story:block">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="label text-white/60">Workflow</p>
-            <p className="label flex items-center gap-2 text-(--accent)">
-              <span className="size-2 animate-pulse rounded-full bg-(--accent)" /> Live
-            </p>
+      {/* Pinned: content sits below the sticky header with a gap, and data-fit shrinks it on short screens. */}
+      <div className="flex h-full flex-col justify-[safe_center] pt-24 pb-6">
+        <div data-fit style={accent} className="shell grid origin-top items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+          <div className="space-y-6">
+            <p className="label text-(--accent)">0{index + 1} · {o.verb}</p>
+            <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-tight sm:text-4xl xl:text-5xl">{o.title}</h2>
+            <p className="text-xl text-white/80">{o.promise}</p>
+            <p className="hidden border-l-2 border-(--accent) pl-5 text-lg text-white/70 italic story:block">“{o.problem}”</p>
+            <dl className="hidden divide-y divide-white/10 border-y border-line story:block">
+              {layers.map(([k, v]) => (
+                <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 py-3 text-lg">
+                  <dt className="label text-(--accent) pt-1">{k}</dt>
+                  <dd className="text-white/85">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <a href={`#start-${o.id}`} className="font-display inline-flex items-center gap-2 text-lg font-semibold text-(--accent) hover:underline">
+              Start with {o.verb} <Icon name="arrow" className="size-5" />
+            </a>
           </div>
-          <ol className="relative space-y-1">
-            <span className="absolute top-6 bottom-6 left-6 w-px bg-white/10" aria-hidden />
-            <span data-scrub-bar className="absolute top-6 bottom-6 left-6 w-px origin-top bg-(--accent)" aria-hidden />
-            {o.flow.map((f, i) => (
-              <li key={f.label} data-scrub-step className="relative flex gap-5 rounded-2xl p-2">
-                <span className="font-display relative grid size-12 shrink-0 place-items-center rounded-full border border-(--accent) bg-navy text-lg font-semibold text-(--accent)">
-                  {i + 1}
-                </span>
-                <span>
-                  <span className="font-display text-xl font-semibold">{f.label}</span>
-                  <span className="block text-lg text-white/70">{f.detail}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
-          <div data-scrub-step className="mt-4 flex items-baseline gap-4 rounded-2xl bg-white/5 px-5 py-4">
-            <p className="font-display text-5xl font-semibold text-(--accent)">{o.result.value}</p>
-            <p className="text-lg text-white/80">{o.result.label}</p>
+  
+          <div className="hidden rounded-3xl border border-line bg-navy/80 p-6 story:block">
+            <div className="mb-4 flex items-center justify-between">
+              <p className="label text-white/60">Workflow</p>
+              <p className="label flex items-center gap-2 text-(--accent)">
+                <span className="size-2 animate-pulse rounded-full bg-(--accent)" /> Live
+              </p>
+            </div>
+            <ol className="relative space-y-1">
+              <span className="absolute top-6 bottom-6 left-6 w-px bg-white/10" aria-hidden />
+              <span data-scrub-bar className="absolute top-6 bottom-6 left-6 w-px origin-top bg-(--accent)" aria-hidden />
+              {o.flow.map((f, i) => (
+                <li key={f.label} data-scrub-step className="relative flex gap-5 rounded-2xl p-2">
+                  <span className="font-display relative grid size-12 shrink-0 place-items-center rounded-full border border-(--accent) bg-navy text-lg font-semibold text-(--accent)">
+                    {i + 1}
+                  </span>
+                  <span>
+                    <span className="font-display text-xl font-semibold">{f.label}</span>
+                    <span className="block text-lg text-white/70">{f.detail}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <div data-scrub-step className="mt-4 flex items-baseline gap-4 rounded-2xl bg-white/5 px-5 py-4">
+              <p className="font-display text-5xl font-semibold text-(--accent)">{o.result.value}</p>
+              <p className="text-lg text-white/80">{o.result.label}</p>
+            </div>
           </div>
         </div>
       </div>

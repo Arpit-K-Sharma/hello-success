@@ -49,10 +49,12 @@ function Diagram() {
   const root = useRef<HTMLDivElement>(null);
   const progress = useScrollProgress();
   const show3d = !useMedia(SCRUB_QUERY);
+  // Live, so resizing into the phone layout (e.g. devtools responsive mode) starts the animation.
+  const live = useMedia(PHONE_QUERY);
 
   useEffect(() => {
     const box = root.current!.style;
-    if (!matchMedia(PHONE_QUERY).matches) {
+    if (!live) {
       // Static (reduced motion): systems partly drawn in, results shown.
       box.setProperty("--c", "0.3");
       box.setProperty("--o", "1");
@@ -70,7 +72,7 @@ function Diagram() {
     };
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
-  }, [progress]);
+  }, [progress, live]);
 
   return (
     <div

@@ -36,6 +36,7 @@ export function useMedia(query: string) {
  *   [data-scrub-bar]     element scaled 0 → 1 along the whole scroll
  *   [data-scrub-bar-x]   same, horizontally; [data-scrub-head] rides its leading edge
  *   [data-dot="i"]       indicator; gets data-active on the current beat
+ *   [data-fit]           scaled down to fit its parent on short screens
  * mode "desk" pins at SCRUB_QUERY, mode "phone" at PHONE_QUERY. Otherwise it
  * renders as a normal, fully visible section (see [data-story] rules in
  * globals.css) and progress stays at 1.
@@ -106,8 +107,25 @@ export function ScrollStory({
         along("[data-scrub-head]", { left: "0%" }, { left: "100%" });
         tl.to({}, { duration: hold }); // hold the final frame before unpinning
 
+        // [data-fit] scales down to its parent's content box so short screens never clip the scene.
+        const fits = q("[data-fit]");
+        const fit = () =>
+          fits.forEach((el) => {
+            const p = el.parentElement!;
+            const cs = getComputedStyle(p);
+            const room = p.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+            el.style.scale = String(Math.min(1, room / el.offsetHeight));
+          });
+        const ro = new ResizeObserver(fit);
+        fits.forEach((el) => {
+          ro.observe(el);
+          ro.observe(el.parentElement!);
+        });
+
         return () => {
           progress.current = 1;
+          ro.disconnect();
+          fits.forEach((el) => (el.style.scale = ""));
         };
       });
     },

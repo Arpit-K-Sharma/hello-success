@@ -46,7 +46,7 @@ export function OrchestrationDiagram() {
   const isDesk = useMedia(SCRUB_QUERY);
 
   useEffect(() => {
-    if (!window.matchMedia(SCRUB_QUERY).matches) return; // static layout from the markup
+    if (!isDesk) return; // static layout from the markup
     const box = root.current!;
     const tagEls = [...box.querySelectorAll<HTMLElement>("[data-tag]")];
     const links = tags.map((_, i) => [...box.querySelectorAll<SVGLineElement>(`[data-link="${i}"]`)]);
@@ -97,7 +97,7 @@ export function OrchestrationDiagram() {
       io.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [progress]);
+  }, [progress, isDesk]);
 
   return (
     <div
