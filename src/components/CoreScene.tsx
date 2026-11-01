@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { SCRUB_QUERY, useScrollProgress } from "./ScrollStory";
+import { useScrollProgress } from "./ScrollStory";
 
 const STARS = 900;
 const { damp } = THREE.MathUtils;
@@ -23,7 +23,7 @@ function buildStars() {
 }
 
 /** Space scene behind the services orbit: starfield + wireframe core that spins with the scroll. */
-function Scene({ x, y, size }: { x: number; y: number; size: number }) {
+function Scene({ x, y, size, showRings }: { x: number; y: number; size: number; showRings: boolean }) {
   const progress = useScrollProgress();
   const { viewport } = useThree();
   const stars = useMemo(() => buildStars(), []);
@@ -40,12 +40,9 @@ function Scene({ x, y, size }: { x: number; y: number; size: number }) {
     spin.current = damp(spin.current, 0.15 + Math.min(velocity * 6, 2.5), 4, dt);
     core.current!.rotation.y += dt * spin.current;
     core.current!.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.15;
-    rings.current!.rotation.z += dt * spin.current * 0.5;
+    if (rings.current) rings.current.rotation.z += dt * spin.current * 0.5;
     world.current!.rotation.y += dt * 0.02;
     core.current!.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 1.6) * 0.02);
-    state.camera.position.x = damp(state.camera.position.x, state.pointer.x * 0.5, 2, dt);
-    state.camera.position.y = damp(state.camera.position.y, state.pointer.y * 0.3, 2, dt);
-    state.camera.lookAt(0, 0, 0);
   });
 
   return (
@@ -67,41 +64,37 @@ function Scene({ x, y, size }: { x: number; y: number; size: number }) {
           </mesh>
           <mesh>
             <sphereGeometry args={[0.7, 32, 32]} />
-            <meshBasicMaterial color="#5b9bff" toneMapped={false} />
+            <meshBasicMaterial color="#5b9bff" transparent opacity={0.35} toneMapped={false} />
           </mesh>
         </group>
-        <group ref={rings} rotation={[Math.PI / 2.4, 0, 0]}>
+        {showRings && <group ref={rings} rotation={[Math.PI / 2.4, 0, 0]}>
           {["#5ee6ff", "#5b9bff", "#a596ff"].map((c, i) => (
-            <mesh key={c} rotation={[i * 0.35, i * 0.6, 0]}>
+            <mesh key={c} rotation={[i * 0.12, i * 0.2, 0]}>
               <torusGeometry args={[2 + i * 0.25, 0.008, 8, 160]} />
               <meshBasicMaterial color={c} toneMapped={false} transparent opacity={0.7} />
             </mesh>
           ))}
-        </group>
+        </group>}
       </group>
     </>
   );
 }
 
 /** x / y: where the core sits, as a fraction of the stage (0.5 = centre). size scales the core. */
-export default function CoreScene({ x = 0.5, y = 0.5, size = 0.62, className = "" }: { x?: number; y?: number; size?: number; className?: string }) {
+export default function CoreScene({ x = 0.5, y = 0.5, size = 0.62, rings = true, className = "" }: { x?: number; y?: number; size?: number; rings?: boolean; className?: string }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  // Client-only (ssr: false). Only the pinned desktop layout shows this scene.
-  const [enabled] = useState(() => window.matchMedia(SCRUB_QUERY).matches);
-
+  // Callers mount this only for the design on screen (useMedia); render only while visible.
   useEffect(() => {
-    if (!enabled) return;
     const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting));
     io.observe(wrapper.current!);
     return () => io.disconnect();
-  }, [enabled]);
+  }, []);
 
-  if (!enabled) return null;
   return (
     <div ref={wrapper} className={`absolute inset-0 ${className}`} aria-hidden>
       <Canvas frameloop={visible ? "always" : "never"} dpr={[1, 1.75]} camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: true }}>
-        <Scene x={x} y={y} size={size} />
+        <Scene x={x} y={y} size={size} showRings={rings} />
       </Canvas>
     </div>
   );

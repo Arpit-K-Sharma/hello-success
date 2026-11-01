@@ -104,7 +104,7 @@ export function ContactForm() {
       </div>
 
       {/* Review before sending: a plain checklist of what they've told us, filled in live. */}
-      <div aria-live="polite" className="hud rounded-2xl border border-glow/30 bg-[linear-gradient(160deg,rgb(24_104_219/0.25),transparent_70%)] p-5">
+      <div aria-live="polite" className="hud hidden rounded-2xl story:block border border-glow/30 bg-[linear-gradient(160deg,rgb(24_104_219/0.25),transparent_70%)] p-5">
         <p className="font-display text-xl font-semibold">Check before you send</p>
         <p className="mt-1 text-white/70">This is what our team will read before your call.</p>
         <dl className="mt-4 divide-y divide-white/10">

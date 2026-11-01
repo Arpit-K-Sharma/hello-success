@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { MathUtils } from "three";
 import { site } from "@/content/site";
-import { SCRUB_QUERY, useScrollProgress } from "./ScrollStory";
+import { SCRUB_QUERY, useMedia, useScrollProgress } from "./ScrollStory";
 
 const CoreScene = dynamic(() => import("./CoreScene"), { ssr: false });
 
@@ -25,8 +25,9 @@ const tags = o.tags.map((name, i) => ({
   sx: SCATTER[i][0],
   sy: SCATTER[i][1],
   // Static layout (mobile / reduced motion): an arc on the core's left, clear of the outputs.
-  mx: CORE.x + Math.cos((120 + (i / (o.tags.length - 1)) * 120) * (Math.PI / 180)) * 185,
-  my: CORE.y + Math.sin((120 + (i / (o.tags.length - 1)) * 120) * (Math.PI / 180)) * 175,
+  // Rounded so server and browser render identical numbers (no hydration mismatch).
+  mx: Math.round(CORE.x + Math.cos((120 + (i / (o.tags.length - 1)) * 120) * (Math.PI / 180)) * 185),
+  my: Math.round(CORE.y + Math.sin((120 + (i / (o.tags.length - 1)) * 120) * (Math.PI / 180)) * 175),
   spin: ((i * 37) % 21) - 10, // degrees of tumble while drifting
   phase: i * 1.7,
 }));
@@ -42,6 +43,7 @@ const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 export function OrchestrationDiagram() {
   const root = useRef<HTMLDivElement>(null);
   const progress = useScrollProgress();
+  const isDesk = useMedia(SCRUB_QUERY);
 
   useEffect(() => {
     if (!window.matchMedia(SCRUB_QUERY).matches) return; // static layout from the markup
@@ -105,7 +107,7 @@ export function OrchestrationDiagram() {
       aria-label="Your systems connect into one orchestration layer that observes, decides, acts and learns, and drives Grow, Serve and Run"
     >
       {/* 3D core (desktop), the same space scene as the services orbit. */}
-      <CoreScene x={CORE.x / W} y={CORE.y / H} size={0.95} className="[mask-image:radial-gradient(circle,#000_45%,transparent_72%)]" />
+      {isDesk && <CoreScene x={CORE.x / W} y={CORE.y / H} size={0.95} rings={false} className="[mask-image:radial-gradient(circle,#000_45%,transparent_72%)]" />}
 
       <svg className="absolute inset-0 size-full" viewBox={`0 0 ${W} ${H}`} aria-hidden>
         {/* Every system is linked to the core; signals flow along the links as they are pulled in. */}
@@ -142,7 +144,7 @@ export function OrchestrationDiagram() {
 
       {/* The core, after the reference site's business core: glass centre, three orbiting rings with satellites. */}
       <div
-        className="absolute z-20 grid aspect-square w-[27%] -translate-1/2 place-items-center rounded-full border border-glow/50 bg-[radial-gradient(circle,rgb(10_132_255/0.35),rgb(5_7_11/0.92)_68%)] text-center transition-[box-shadow] lg:motion-safe:bg-[radial-gradient(circle,rgb(10_132_255/0.2),rgb(5_7_11/0.55)_70%)]"
+        className="absolute z-20 grid aspect-square w-[27%] -translate-1/2 place-items-center rounded-full border border-glow/50 bg-[radial-gradient(circle,rgb(10_132_255/0.35),rgb(5_7_11/0.92)_68%)] text-center transition-[box-shadow] story:bg-[radial-gradient(circle,rgb(10_132_255/0.2),rgb(5_7_11/0.55)_70%)]"
         style={{
           left: pct(CORE.x, W),
           top: pct(CORE.y, H),

@@ -28,7 +28,7 @@ ScrollStory (section, pinned)          src/components/ScrollStory.tsx
 - each outcome chapter = `2.5`
 
 ### Fallbacks (built in)
-`SCRUB_QUERY = (min-width: 1024px) and (prefers-reduced-motion: no-preference)`.
+`SCRUB_QUERY = (min-width: 1200px) and (prefers-reduced-motion: no-preference)`.
 
 When that query doesn't match (phones, tablets, or users who asked for reduced motion):
 - there is no pinning.

@@ -16,7 +16,7 @@ Marketing site for **Hello Success × IT Together**, a new practice launched by 
 ## Structure
 ```
 src/content/services.ts   outcomes (Grow/Serve/Run) + 6 services: all service copy
-src/content/site.ts       nav, hero, problem, orchestration, stats, case studies, IT Together, discovery, FAQs
+src/content/site.ts       nav, hero (what Hello Success is + Discover, Redesign, Automate), problem, orchestration, stats, case studies, IT Together, discovery, FAQs
 src/app/page.tsx          single page; one function per section, in scroll order
 src/app/globals.css       design tokens (@theme static), ScrollStory CSS, reveal animation
 src/components/
@@ -25,14 +25,17 @@ src/components/
   OrchestrationDiagram.tsx  converge diagram (reference "business core" + 3D CoreScene); scroll sets --c/--l/--o
   Inbox.tsx               problem section: static Outlook-style inbox
   CoreScene.tsx           R3F space scene behind the services orbit (spins with scroll speed)
-  ScrollStory.tsx         pinned scroll = video engine + useScrollProgress()
+  ScrollStory.tsx         pinned scroll = video engine (mode "desk" | "phone") + useScrollProgress() + useMedia()
+  phone/                  phone/tablet design: Stories (swipe cards), PhoneOrchestration
   HeroScene.tsx           R3F hero (procedural 3D, reads progress ref)
   FrameSequence.tsx       canvas image-sequence player
   HeroVisual.tsx          picks 3D or frames from site.hero.frames
-  ServiceCatalogue.tsx    services orbit (scroll turns the ring) + grid fallback + <dialog> focus mode
+  ServiceCatalogue.tsx    services orbit (desktop) + Stories (phone) + <dialog> focus mode
   ContactForm.tsx         discovery brief form with live preview (sends nothing yet)
   Header.tsx              nav links; a glowing underline slides to the section on screen (site.nav[].sections)
-public/brand/             IT Together logos (trimmed); originals in reference/original/assets
+public/brand/             hello-success-mark-* (ring + 3 nodes) and -wordmark-* in colour / white / ink;
+                          itt-logo.png (IT Together full) and itt-mark.png (triangle only); originals in reference/original/assets
+src/app/icon.svg          favicon = Hello Success mark (colour)
 docs/                     site-audit.md (reference-site analysis), scroll-animation-guide.md
 reference/original/       captured source of the original ChatGPT-built site (read-only)
 ```
@@ -41,6 +44,7 @@ reference/original/       captured source of the original ChatGPT-built site (re
 - **Change copy in `src/content/*` only.** Components must not hardcode service or marketing text.
 - **No on-page demo labels.** Stats, clients, quotes and contact details in `site.ts` are placeholders; the board was told verbally. Replace them before launch.
 - **No dashes in visible copy.** No em dashes, en dashes or `--`. Write ranges as "4 to 6 weeks".
+- **Logos:** Hello Success wordmark + IT Together full logo where there is room (header from 420px, footer); marks only where space is tight (IT Together triangle on small phones, Hello Success ring as favicon and services centre). On light sections use the `-ink` versions.
 - **Never use real company logos as fake clients.** Fictional client names only.
 - **Contact details are fictional.** The email uses the `.example` domain and the phone is in AU's reserved-for-fiction range (0491 570 xxx).
 - **Spelling:** Australian English (optimise, organisation).
@@ -76,11 +80,14 @@ reference/original/       captured source of the original ChatGPT-built site (re
 - **Buttons:** `ButtonLink` (primary = brand fill with glow, ghost = outline). Don't create new button styles.
 - **Icons:** `Icon` in `ui.tsx` is a small inline-SVG set (24px grid, 1.6 stroke, round caps). Add new icons there with the same stroke style; no icon library.
 - **Reveal on scroll:** add the `reveal` class (native CSS scroll-driven animation; no JS).
-- **Scroll scenes:** wrap in `<ScrollStory screens={n} hold={0.25}>` and mark children with `data-beat`, `data-scrub-step`, `data-scrub-bar` (vertical), `data-scrub-bar-x` + `data-scrub-head` (horizontal) and `data-dot`. Pinned content must clear the sticky header (`lg:motion-safe:pt-24`+).
+- **Scroll scenes:** wrap in `<ScrollStory screens={n} hold={0.25}>` and mark children with `data-beat`, `data-scrub-step`, `data-scrub-bar` (vertical), `data-scrub-bar-x` + `data-scrub-head` (horizontal) and `data-dot`. Pinned content must clear the sticky header (`story:pt-24`+). The `story:` variant (globals.css) is the pinned-scene breakpoint: 1200px+ with motion allowed.
 - **Pre-filled booking:** any link to `#start-grow` / `#start-serve` / `#start-run` / `#start-unsure` scrolls to the form with that focus chosen.
 - **Scroll-driven CSS needs `overflow-clip`, not `overflow-hidden`,** on ancestors: `hidden` makes a scroll container and freezes `view()` timelines.
 - **Tech theme helpers:** `.tech-grid` (faded grid backdrop) and `.hud` (corner brackets) in `globals.css`. Visuals read `useScrollProgress()` (a ref; never put it in state). Full guide: `docs/scroll-animation-guide.md`.
-- **Desktop/mobile split:** the `SCRUB_QUERY` in `ScrollStory.tsx` must match the `[data-story]` media query in `globals.css`.
+- **Two designs, one content source:** desktop = the `story:` variant (1200px+ with motion); everything else gets the phone/tablet design. Big sections render both via `Split` in `page.tsx` (`hidden story:block` / `story:hidden`); the anchor `id` sits on the shared wrapper, never inside. Phone versions live in `components/phone/` or next to the desktop one; copy still comes from `src/content/*`.
+- **Phone motion:** Hero and Orchestration pin with `<ScrollStory mode="phone">`; outcomes, services and case studies are `<Stories>` (auto-advancing swipe cards). 3D mounts only for the design on screen (`useMedia(SCRUB_QUERY)`).
+- **Query sync:** `SCRUB_QUERY` / `PHONE_QUERY` in `ScrollStory.tsx` must match the `[data-story="desk"]` / `[data-story="phone"]` media queries in `globals.css`.
+- **Dev server gotcha:** Turbopack sometimes stops seeing `globals.css` edits. If new CSS rules don't appear, stop the dev server, delete `.next/dev`, restart.
 - **Focus mode:** use a native `<dialog>` with `showModal()`. It gives free focus-trapping and Esc handling.
 
 ## Figma → code (MCP) workflow
@@ -100,4 +107,4 @@ reference/original/       captured source of the original ChatGPT-built site (re
 ## Accessibility baseline
 - Keep heading order: one `h1` in the hero, then `h2` per section.
 - Decorative canvases need `aria-hidden`; every interactive element needs a visible focus state.
-- Everything must work and be readable with `prefers-reduced-motion: reduce` and below 1024px.
+- Everything must work and be readable with `prefers-reduced-motion: reduce` and below 1200px.

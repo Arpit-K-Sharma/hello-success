@@ -47,9 +47,9 @@ export function Inbox() {
             <span className="ml-auto pb-1.5 text-ink/55 sm:hidden"><span>{inbox.unreadBase + N}</span> unread</span>
           </div>
           <ul>
-            {inbox.emails.map((m) => {
+            {inbox.emails.map((m, i) => {
               return (
-                <li key={m.subject}>
+                <li key={m.subject} className={i > 3 ? "hidden story:block" : undefined}>
                   <div>
                     <div className="relative flex gap-3 border-b border-black/[0.07] py-2.5 pr-4 pl-4">
                       <span className="absolute inset-y-0 left-0 w-[3px] bg-[#0f6cbd]" aria-hidden />

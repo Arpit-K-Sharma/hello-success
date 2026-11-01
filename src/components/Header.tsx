@@ -53,7 +53,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-void/80 backdrop-blur-xl">
-      <div className="shell flex h-18 items-center gap-6">
+      <div className="shell flex h-18 items-center gap-3 sm:gap-6">
         <a href="#top" aria-label={`${site.name} home`} onClick={close} className="shrink-0">
           <Lockup />
         </a>

@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Pinned scroll scenes (ScrollStory) run only on wide screens with motion allowed. Must match SCRUB_QUERY. */
+@custom-variant story (@media (min-width: 1200px) and (prefers-reduced-motion: no-preference));
+
 /* Design tokens. Brand blue sampled from the IT Together logo (#1868db). */
 @theme static {
   --color-void: #05070b;
@@ -25,7 +28,9 @@
 }
 
 /* 18px base: every rem-based size is ~12% larger, readable from a desk. */
-html { scroll-behavior: smooth; font-size: 112.5%; }
+/* 16px base on phones, 18px from 640px up. */
+html { scroll-behavior: smooth; font-size: 100%; }
+@media (min-width: 640px) { html { font-size: 112.5%; } }
 
 body {
   background: var(--color-void);
@@ -92,17 +97,27 @@ details::details-content {
 }
 details[open]::details-content { block-size: auto; }
 
-/* ScrollStory: pinned + scrubbed only on desktop with motion allowed
-   (must match SCRUB_QUERY in ScrollStory.tsx). Elsewhere: normal flow. */
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  [data-story] { height: calc(var(--screens) * 100svh); }
-  [data-story-sticky] { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-  [data-beats] { display: grid; }
-  [data-beats] > [data-beat] { grid-area: 1 / 1; }
-  [data-beat]:not([data-beat="0"]) { opacity: 0; visibility: hidden; }
-  [data-scrub-step] { opacity: 0.25; }
-  [data-scrub-bar] { transform: scaleY(0); }
-  [data-scrub-bar-x] { transform: scaleX(0); }
+/* ScrollStory: pinned + scrubbed per design, only with motion allowed
+   (must match SCRUB_QUERY / PHONE_QUERY in ScrollStory.tsx). Elsewhere: normal flow. */
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+  [data-story="desk"] { height: calc(var(--screens) * 100svh); }
+  [data-story="desk"] > [data-story-sticky] { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  [data-story="desk"] [data-beats] { display: grid; }
+  [data-story="desk"] [data-beats] > [data-beat] { grid-area: 1 / 1; }
+  [data-story="desk"] [data-beat]:not([data-beat="0"]) { opacity: 0; visibility: hidden; }
+  [data-story="desk"] [data-scrub-step] { opacity: 0.25; }
+  [data-story="desk"] [data-scrub-bar] { transform: scaleY(0); }
+  [data-story="desk"] [data-scrub-bar-x] { transform: scaleX(0); }
+}
+@media (max-width: 1199.98px) and (prefers-reduced-motion: no-preference) {
+  [data-story="phone"] { height: calc(var(--screens) * 100svh); }
+  [data-story="phone"] > [data-story-sticky] { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  [data-story="phone"] [data-beats] { display: grid; }
+  [data-story="phone"] [data-beats] > [data-beat] { grid-area: 1 / 1; }
+  [data-story="phone"] [data-beat]:not([data-beat="0"]) { opacity: 0; visibility: hidden; }
+  [data-story="phone"] [data-scrub-step] { opacity: 0.25; }
+  [data-story="phone"] [data-scrub-bar] { transform: scaleY(0); }
+  [data-story="phone"] [data-scrub-bar-x] { transform: scaleX(0); }
 }
 [data-dot][data-active] { background: var(--color-glow); width: 2rem; }
 
@@ -111,8 +126,9 @@ dialog::backdrop {
   backdrop-filter: blur(6px);
 }
 
-/* Tech backdrop: faint grid that fades out at the edges. */
+/* Tech backdrop: faint grid that fades out at the edges. Decorative: never catches touches. */
 .tech-grid {
+  pointer-events: none;
   background-image:
     linear-gradient(rgb(139 232 255 / 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgb(139 232 255 / 0.06) 1px, transparent 1px);

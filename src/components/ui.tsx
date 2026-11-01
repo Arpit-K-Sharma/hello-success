@@ -1,15 +1,19 @@
 import Image from "next/image";
 import type { Service } from "@/content/services";
 
-/** "hello success × IT Together" lockup. */
+/**
+ * "hello success × IT Together" lockup: Hello Success wordmark, then IT Together's
+ * triangle mark on small phones or its full logo from 420px up.
+ */
 export function Lockup({ className = "" }: { className?: string }) {
   return (
-    <span className={`flex items-center gap-3 ${className}`}>
-      <span className="font-display text-lg font-semibold tracking-tight whitespace-nowrap lowercase sm:text-xl">hello success</span>
+    <span className={`flex items-center gap-2 sm:gap-3 ${className}`}>
+      <Image src="/brand/hello-success-wordmark-colour.svg" alt="hello success" width={6542} height={1040} unoptimized className="h-6 w-auto sm:h-7" />
       <span className="text-brand-2 text-lg font-light" aria-hidden>
         ×
       </span>
-      <Image src="/brand/itt-horizontal-white.png" alt="IT Together" width={657} height={94} className="h-4 w-auto sm:h-6" />
+      <Image src="/brand/itt-mark.png" alt="IT Together" width={538} height={384} className="h-6 w-auto min-[420px]:hidden" />
+      <Image src="/brand/itt-logo.png" alt="IT Together" width={1355} height={278} className="hidden h-5 w-auto min-[420px]:block sm:h-6" />
     </span>
   );
 }

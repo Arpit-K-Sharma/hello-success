@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { MathUtils } from "three";
 import { outcomes, services } from "@/content/services";
-import { useScrollProgress } from "./ScrollStory";
+import { SCRUB_QUERY, useMedia, useScrollProgress } from "./ScrollStory";
 import { Icon } from "./ui";
+import { Stories } from "./phone/Stories";
 
 const CoreScene = dynamic(() => import("./CoreScene"), { ssr: false });
 
@@ -28,7 +30,7 @@ function OutcomeChips({ ids }: { ids: string[] }) {
 /**
  * Services as an orbit around a glowing core. Scroll turns the ring; each
  * service pauses at the front and opens a detail panel above everything.
- * Below 1024px / reduced motion: a plain grid. Both open the focus dialog.
+ * Below 1200px / reduced motion: a plain grid. Both open the focus dialog.
  */
 export function ServiceCatalogue() {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -45,25 +47,32 @@ export function ServiceCatalogue() {
     <>
       <Orbit onOpen={open} />
 
-      <div className="shell grid gap-4 pb-28 sm:grid-cols-2 lg:grid-cols-3 lg:motion-safe:hidden">
-        {services.map((svc, i) => (
-          <button
-            key={svc.slug}
-            type="button"
-            onClick={() => open(i)}
-            className="group flex flex-col items-start gap-5 rounded-3xl border border-line bg-navy p-7 text-left transition hover:-translate-y-1 hover:border-brand-2/50"
-          >
-            <span className="bg-brand/20 text-brand-2 grid size-14 place-items-center rounded-2xl">
-              <Icon name={svc.icon} className="size-7" />
-            </span>
-            <span className="font-display text-2xl font-semibold">{svc.name}</span>
-            <span className="grow text-lg text-white/75">{svc.short}</span>
-            <OutcomeChips ids={svc.outcomes} />
-            <span className="text-brand-2 inline-flex items-center gap-2 font-medium">
-              See how it works <Icon name="arrow" className="size-4 transition group-hover:translate-x-1" />
-            </span>
-          </button>
-        ))}
+      {/* Phone design: one service per story card; "Full details" opens the same dialog. */}
+      <div className="shell relative z-10 pb-16 story:hidden">
+        <Stories label="Services">
+          {services.map((svc, i) => (
+            <article key={svc.slug} className="flex w-full flex-col gap-4 rounded-3xl border border-line bg-navy p-6">
+              <div className="flex items-center gap-4">
+                <span className="bg-brand grid size-12 shrink-0 place-items-center rounded-2xl text-white">
+                  <Icon name={svc.icon} className="size-6" />
+                </span>
+                <h3 className="font-display text-2xl leading-tight font-semibold">{svc.name}</h3>
+              </div>
+              <p className="text-white/80">{svc.short}</p>
+              <ul className="grid gap-2">
+                {svc.whatWeDo.map((w) => (
+                  <li key={w} className="flex gap-2.5 text-white/85"><Icon name="check" className="text-glow mt-1 size-4 shrink-0" />{w}</li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+                <OutcomeChips ids={svc.outcomes} />
+                <button type="button" onClick={() => open(i)} className="bg-brand inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-medium">
+                  Full details <Icon name="arrow" className="size-4" />
+                </button>
+              </div>
+            </article>
+          ))}
+        </Stories>
       </div>
 
       <dialog
@@ -144,13 +153,14 @@ export function ServiceCatalogue() {
 
 // Orbit sits left; the service in front is read in a fixed panel on the right.
 const CX = 0.29;
-const CY = 0.6;
+const CY = 0.62;
 
 function Orbit({ onOpen }: { onOpen: (i: number) => void }) {
   const progress = useScrollProgress();
   const stage = useRef<HTMLDivElement>(null);
   const counter = useRef<HTMLSpanElement>(null);
   const track = useRef<HTMLDivElement>(null);
+  const isDesk = useMedia(SCRUB_QUERY);
 
   useEffect(() => {
     const chips = [...stage.current!.querySelectorAll<HTMLElement>("[data-chip]")];
@@ -174,7 +184,7 @@ function Orbit({ onOpen }: { onOpen: (i: number) => void }) {
 
       const { width } = stage.current!.getBoundingClientRect();
       const rx = Math.min(width * 0.2, 300);
-      const ry = Math.min(window.innerHeight * 0.17, 140);
+      const ry = Math.min(window.innerHeight * 0.14, 140);
       // The nearest service is always the one being read: no empty, half-faded panel.
       const active = Math.round(pos);
       track.current!.style.width = `${rx * 2}px`;
@@ -198,13 +208,13 @@ function Orbit({ onOpen }: { onOpen: (i: number) => void }) {
 
   const at = { left: `${CX * 100}%`, top: `${CY * 100}%` };
   return (
-    <div ref={stage} className="absolute inset-0 hidden lg:motion-safe:block">
+    <div ref={stage} className="absolute inset-0 hidden story:block">
       {/* The core: a space scene every service orbits; it spins faster while the ring turns. */}
-      <CoreScene x={CX} y={CY} />
+      {isDesk && <CoreScene x={CX} y={CY} />}
       <div ref={track} style={at} className="absolute -translate-1/2 rounded-[50%] border border-glow/25 shadow-[0_0_40px_-10px] shadow-glow/40" aria-hidden />
-      <p style={at} className="font-display pointer-events-none absolute z-[50] -translate-1/2 text-center text-lg leading-tight font-semibold [text-shadow:0_0_16px_#05070b,0_0_4px_#05070b]">
-        Hello Success
-        <span className="label block text-glow">6 services</span>
+      <p style={at} className="pointer-events-none absolute z-[50] flex -translate-1/2 flex-col items-center gap-1 text-center [text-shadow:0_0_16px_#05070b,0_0_4px_#05070b]">
+        <Image src="/brand/hello-success-mark-colour.svg" alt="Hello Success" width={48} height={48} unoptimized className="size-12 drop-shadow-[0_0_12px_rgb(5_7_11)]" />
+        <span className="label text-glow">{N} services</span>
       </p>
 
       <div style={at} className="absolute size-0">
@@ -224,7 +234,7 @@ function Orbit({ onOpen }: { onOpen: (i: number) => void }) {
       </div>
 
       {/* Reading panel: the service at the front, shown large and steady. */}
-      <div className="absolute top-[55%] right-[max(1.25rem,calc((100%-1280px)/2))] grid w-[min(34rem,40vw)] -translate-y-1/2">
+      <div className="absolute top-[max(6rem,calc(50%-12rem))] right-[max(1.25rem,calc((100%-1280px)/2))] grid w-[min(34rem,40vw)]">
         <p className="label mb-4 text-white/60">
           <span ref={counter} className="font-display text-glow text-3xl">01</span> / 0{N}
         </p>

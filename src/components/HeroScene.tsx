@@ -32,7 +32,7 @@ function buildNodes() {
   });
 }
 
-function Scene({ still }: { still: boolean }) {
+function Scene({ still, spin }: { still: boolean; spin: boolean }) {
   const progress = useScrollProgress();
   const p = useRef(progress.current);
   const group = useRef<THREE.Group>(null);
@@ -68,7 +68,9 @@ function Scene({ still }: { still: boolean }) {
     rings.current!.visible = ringsIn > 0.01;
 
     if (!still) {
-      group.current!.rotation.y += dt * 0.08;
+      // Phone: a livelier spin, since the scene is the backdrop behind the copy.
+      group.current!.rotation.y += dt * (spin ? 0.3 : 0.08);
+      if (spin) group.current!.rotation.z += dt * 0.05;
       rings.current!.children.forEach((ring, i) => (ring.rotation.z += dt * (0.15 + i * 0.07)));
     }
     // Slow dolly-in plus a gentle pointer parallax.
@@ -116,7 +118,7 @@ function Scene({ still }: { still: boolean }) {
   );
 }
 
-export default function HeroScene() {
+export default function HeroScene({ spin = false }: { spin?: boolean }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   // Client-only component (ssr: false), so window is safe here.
@@ -137,7 +139,7 @@ export default function HeroScene() {
         camera={{ position: [0, 0, 10], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
       >
-        <Scene still={still} />
+        <Scene still={still} spin={spin} />
       </Canvas>
     </div>
   );

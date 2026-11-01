@@ -26,26 +26,26 @@ export const site = {
   },
 
   hero: {
-    eyebrow: "AI automation for growing businesses",
-    title: ["Your business,", "connected.", "Automated."],
+    eyebrow: "Business consulting, delivered through technology",
+    title: ["Consulting that", "delivers.", "Not just a report."],
     intro:
-      "We connect the systems you already use, automate the repetitive work and put AI where it actually pays off. You grow revenue, serve customers faster and run leaner.",
-    // Scroll beats: copy that swaps while the 3D scene plays.
+      "We find what's holding your business back and fix the process. Then, instead of handing you a report, we automate it with technology that gets better the more you use it.",
+    // What Hello Success does, in order. Scroll beats on desktop; a short list on smaller screens.
     beats: [
       {
-        kicker: "01 · Connect",
-        heading: "Your tools stop working alone.",
-        body: "CRM, finance, email, service desk and spreadsheets, joined into one connected system.",
+        kicker: "01 · Where we start",
+        heading: "Discover",
+        body: "Goals, people, processes and systems. We find the real bottleneck.",
       },
       {
-        kicker: "02 · Automate",
-        heading: "Work moves on its own.",
-        body: "Rules, automation and AI agents route the routine work. Your people handle the judgement calls.",
+        kicker: "02 · Before any software",
+        heading: "Redesign",
+        body: "We simplify the process before choosing any technology.",
       },
       {
-        kicker: "03 · Grow",
-        heading: "Three results, one system.",
-        body: "More revenue. Happier customers. Leaner operations. All measured, all improving.",
+        kicker: "03 · Where we're different",
+        heading: "Automate",
+        body: "No report on a shelf. We build the automation that does the work, and it keeps getting better the more your team uses it.",
       },
     ],
     // Set to a frame folder in /public/frames to replace the 3D scene with an
@@ -114,12 +114,12 @@ export const site = {
   },
 
   process: [
-    { step: "Discover", text: "Goals, people, processes and systems. We find the real bottleneck." },
-    { step: "Redesign", text: "We simplify the process before choosing any technology." },
-    { step: "Connect", text: "Platforms and data joined into one flow." },
-    { step: "Automate", text: "Automation and AI where they create clear value." },
-    { step: "Measure", text: "Results tracked against the business case you agreed to." },
-    { step: "Advance", text: "After launch we stay on, keep improving and line up your next win." },
+    { step: "Discover", phase: "Consulting", text: "Goals, people, processes and systems. We find the real bottleneck." },
+    { step: "Redesign", phase: "Consulting", text: "We simplify the process before choosing any technology." },
+    { step: "Connect", phase: "Technology", text: "Platforms and data joined into one flow." },
+    { step: "Automate", phase: "Technology", text: "Automation and AI where they create clear value." },
+    { step: "Measure", phase: "Technology", text: "Results tracked against the business case you agreed to." },
+    { step: "Advance", phase: "Technology", text: "After launch we stay on, keep improving and line up your next win." },
   ],
 
   stats: [

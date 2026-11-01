@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useRef, type ReactNode, type RefObject } from "react";
+import { createContext, useContext, useRef, useSyncExternalStore, type ReactNode, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -12,7 +12,22 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const ProgressContext = createContext<RefObject<number>>({ current: 1 });
 export const useScrollProgress = () => useContext(ProgressContext);
 
-export const SCRUB_QUERY = "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
+export const SCRUB_QUERY = "(min-width: 1200px) and (prefers-reduced-motion: no-preference)";
+// Phone design (everything that isn't the desktop design) pins its own scenes when motion is allowed.
+export const PHONE_QUERY = "(max-width: 1199.98px) and (prefers-reduced-motion: no-preference)";
+
+/** Live matchMedia; false on the server. Used to mount 3D only for the design on screen. */
+export function useMedia(query: string) {
+  return useSyncExternalStore(
+    (cb) => {
+      const m = matchMedia(query);
+      m.addEventListener("change", cb);
+      return () => m.removeEventListener("change", cb);
+    },
+    () => matchMedia(query).matches,
+    () => false,
+  );
+}
 
 /**
  * Pinned "scroll = video" section. Markup inside opts in with data attributes:
@@ -21,13 +36,15 @@ export const SCRUB_QUERY = "(min-width: 1024px) and (prefers-reduced-motion: no-
  *   [data-scrub-bar]     element scaled 0 → 1 along the whole scroll
  *   [data-scrub-bar-x]   same, horizontally; [data-scrub-head] rides its leading edge
  *   [data-dot="i"]       indicator; gets data-active on the current beat
- * Below 1024px or with reduced motion it renders as a normal, fully visible
- * section (see [data-story] rules in globals.css) and progress stays at 1.
+ * mode "desk" pins at SCRUB_QUERY, mode "phone" at PHONE_QUERY. Otherwise it
+ * renders as a normal, fully visible section (see [data-story] rules in
+ * globals.css) and progress stays at 1.
  */
 export function ScrollStory({
   id,
   screens,
   hold = 0.25,
+  mode = "desk",
   className = "",
   children,
 }: {
@@ -35,6 +52,7 @@ export function ScrollStory({
   screens: number;
   /** Share of extra timeline to hold the final frame before unpinning. */
   hold?: number;
+  mode?: "desk" | "phone";
   className?: string;
   children: ReactNode;
 }) {
@@ -44,7 +62,7 @@ export function ScrollStory({
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add(SCRUB_QUERY, () => {
+      mm.add(mode === "desk" ? SCRUB_QUERY : PHONE_QUERY, () => {
         const q = gsap.utils.selector(root);
         const beats = q("[data-beat]");
         const steps = q("[data-scrub-step]");
@@ -101,7 +119,7 @@ export function ScrollStory({
       <section
         ref={root}
         id={id}
-        data-story
+        data-story={mode}
         style={{ "--screens": screens } as React.CSSProperties}
         className={`relative ${className}`}
       >
