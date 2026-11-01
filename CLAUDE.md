@@ -11,7 +11,7 @@ Marketing site for **Hello Success × IT Together**, a new practice launched by 
 - **Styling:** Tailwind CSS v4, CSS-first config in `src/app/globals.css`. There is no `tailwind.config`.
 - **Animation:** GSAP + ScrollTrigger via `@gsap/react` `useGSAP`. This is the only animation library; don't add Motion or Framer.
 - **3D:** three.js through `@react-three/fiber`, client-only via `next/dynamic({ ssr: false })`.
-- **Commands:** `npm run dev` · `npm run build` · `npx eslint src` · Docker: `docker compose up -d --build` (port 3000, or `PORT=8080 docker compose up -d`), `docker compose down` to stop (`compose.yaml` + `Dockerfile`, uses `output: "standalone"`)
+- **Commands:** `npm run dev` · `npm run build` · `npx eslint src` · Docker: `docker compose up -d --build` (port 3001, or `PORT=8080 docker compose up -d`), `docker compose down` to stop (`compose.yaml` + `Dockerfile`, uses `output: "standalone"`)
 
 ## Structure
 ```
