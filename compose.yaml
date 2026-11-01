@@ -1,0 +1,9 @@
+# Start:  docker compose up -d --build   →  http://localhost:3000
+# Stop:   docker compose down
+services:
+  web:
+    build: .
+    image: hello-success
+    ports:
+      - "${PORT:-3000}:3000"
+    restart: unless-stopped
