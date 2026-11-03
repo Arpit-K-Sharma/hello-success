@@ -8,11 +8,12 @@ import type { Service } from "@/content/services";
 export function Lockup({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 sm:gap-3 ${className}`}>
-      <Image src="/brand/hs-logo-long-white.svg" alt="hello success" width={1911} height={316} unoptimized className="h-6 w-auto sm:h-7" />
+      {/* hs-logo-long is proportioned like itt-logo (mark fills the top 85%), so at equal heights the marks and baselines line up. */}
+      <Image src="/brand/hs-logo-long-white.svg" alt="hello success" width={1952} height={353} unoptimized className="h-5 w-auto sm:h-6" />
       <span className="text-brand-2 text-lg font-light" aria-hidden>
         ×
       </span>
-      <Image src="/brand/itt-mark.png" alt="IT Together" width={538} height={384} className="h-6 w-auto min-[420px]:hidden" />
+      <Image src="/brand/itt-mark.png" alt="IT Together" width={538} height={384} className="box-border h-5 w-auto pb-[0.19rem] min-[420px]:hidden" />
       <Image src="/brand/itt-logo.png" alt="IT Together" width={1355} height={278} className="hidden h-5 w-auto min-[420px]:block sm:h-6" />
     </span>
   );
