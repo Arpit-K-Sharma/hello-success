@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1911 316" role="img" aria-label="hello success">
+  <title>hello success</title>
+  <g id="icon" fill="#ffffff" transform="translate(8.00 8.00) scale(0.40650) translate(-237 -262)">
+    <path d="M443 262H756L710 356H443Z"/>
+    <path d="M445 262A208 208 0 0 0 445 678V584A114 114 0 0 1 445 356Z"/>
+    <path d="M443 584H823V678H443Z"/>
+    <path d="M821 584A208 208 0 0 1 821 1000V906A114 114 0 0 0 821 678Z"/>
+    <path d="M823 906H556L510 1000H823Z"/>
+    <path d="M260 1000H378L656 432H538Z"/>
+    <path d="M1006 262H888L610 830H728Z"/>
+  </g>
+  <g id="wordmark" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="240">
+    <text x="394.0" y="308" letter-spacing="-2"><tspan font-weight="700">hello</tspan><tspan dx="24" font-style="italic" font-weight="600">success</tspan></text>
+  </g>
+</svg>

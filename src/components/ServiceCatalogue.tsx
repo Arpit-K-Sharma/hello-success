@@ -213,7 +213,7 @@ function Orbit({ onOpen }: { onOpen: (i: number) => void }) {
       {isDesk && <CoreScene x={CX} y={CY} />}
       <div ref={track} style={at} className="absolute -translate-1/2 rounded-[50%] border border-glow/25 shadow-[0_0_40px_-10px] shadow-glow/40" aria-hidden />
       <p style={at} className="pointer-events-none absolute z-[50] flex -translate-1/2 flex-col items-center gap-1 text-center [text-shadow:0_0_16px_#05070b,0_0_4px_#05070b]">
-        <Image src="/brand/hello-success-mark-colour.svg" alt="Hello Success" width={48} height={48} unoptimized className="size-12 drop-shadow-[0_0_12px_rgb(5_7_11)]" />
+        <Image src="/brand/hs-logo-short-white.svg" alt="Hello Success" width={48} height={48} unoptimized className="size-12 drop-shadow-[0_0_12px_rgb(5_7_11)]" />
         <span className="label text-glow">{N} services</span>
       </p>
 

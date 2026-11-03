@@ -8,7 +8,7 @@ import type { Service } from "@/content/services";
 export function Lockup({ className = "" }: { className?: string }) {
   return (
     <span className={`flex items-center gap-2 sm:gap-3 ${className}`}>
-      <Image src="/brand/hello-success-wordmark-colour.svg" alt="hello success" width={6542} height={1040} unoptimized className="h-6 w-auto sm:h-7" />
+      <Image src="/brand/hs-logo-long-white.svg" alt="hello success" width={1911} height={316} unoptimized className="h-6 w-auto sm:h-7" />
       <span className="text-brand-2 text-lg font-light" aria-hidden>
         ×
       </span>
