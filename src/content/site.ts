@@ -7,8 +7,8 @@ export const site = {
     "AI automation, connected systems and smarter processes that help businesses grow revenue, serve customers better and save time and cost.",
   // In page order. `sections` = ids that light up this item while on screen.
   nav: [
-    { label: "How it works", href: "#orchestration", sections: ["orchestration"] },
-    { label: "Outcomes", href: "#outcomes", sections: ["outcomes", "grow", "serve", "save"] },
+    { label: "Our process", href: "#orchestration", sections: ["orchestration"] },
+    { label: "What you get", href: "#outcomes", sections: ["outcomes", "grow", "serve", "save"] },
     { label: "Services", href: "#services", sections: ["services"] },
     { label: "Process", href: "#process", sections: ["process"] },
     { label: "Why us", href: "#why-us", sections: ["why-us"] },
@@ -84,6 +84,9 @@ export const site = {
       { id: "save", verb: "Save", label: "Leaner operations" },
     ],
   },
+
+  // Grow / Serve / Save: what the client gets (our process is Discover, Redesign, Build, Run).
+  outcomesIntro: { eyebrow: "What you get", title: "Three outcomes. One connected system." },
 
   problem: {
     eyebrow: "The problem",

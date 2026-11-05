@@ -192,8 +192,8 @@ function OutcomesIntro() {
   return (
     <section className="pt-20 pb-8 sm:pt-28 story:pb-0">
       <div className="shell reveal space-y-8 text-center">
-        <Eyebrow>How it works</Eyebrow>
-        <h2 className={`${H2} mx-auto max-w-4xl`}>Three outcomes. One connected system.</h2>
+        <Eyebrow>{site.outcomesIntro.eyebrow}</Eyebrow>
+        <h2 className={`${H2} mx-auto max-w-4xl`}>{site.outcomesIntro.title}</h2>
         <div className="hidden flex-wrap justify-center gap-3 story:flex">
           {outcomes.map((o) => (
             <a key={o.id} href={`#${o.id}`} className="font-display rounded-full border border-current/50 px-7 py-3 text-lg font-semibold transition hover:bg-white/5" style={{ color: `var(--color-${o.id})` }}>
