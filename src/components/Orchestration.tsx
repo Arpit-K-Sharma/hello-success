@@ -5,7 +5,7 @@ import { Eyebrow } from "./ui";
 
 const { orchestration: o } = site;
 
-/** Pinned scene: scattered systems merge into one layer, which then drives Grow, Serve and Run. */
+/** Pinned scene: scattered systems merge into one layer, which then drives Grow, Serve and Save. */
 export function Orchestration() {
   return (
     <ScrollStory screens={4.5} className="overflow-x-clip border-y border-line bg-void">

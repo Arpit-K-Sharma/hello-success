@@ -15,13 +15,13 @@ Marketing site for **Hello Success × IT Together**, a new practice launched by 
 
 ## Structure
 ```
-src/content/services.ts   outcomes (Grow/Serve/Run) + 6 services: all service copy
+src/content/services.ts   outcomes (Grow/Serve/Save) + 6 services: all service copy
 src/content/site.ts       nav, hero (what Hello Success is + Discover, Redesign, Automate), problem, orchestration, stats, case studies, IT Together, discovery, FAQs
 src/app/page.tsx          single page; one function per section, in scroll order
 src/app/globals.css       design tokens (@theme static), ScrollStory CSS, reveal animation
 src/components/
   ui.tsx                  Lockup, Eyebrow, Icon, ButtonLink
-  Orchestration.tsx       pinned scene: scattered systems converge on the core, which sends out Grow/Serve/Run
+  Orchestration.tsx       pinned scene: scattered systems converge on the core, which sends out Grow/Serve/Save
   OrchestrationDiagram.tsx  converge diagram (reference "business core" + 3D CoreScene); scroll sets --c/--l/--o
   Inbox.tsx               problem section: static Outlook-style inbox
   CoreScene.tsx           R3F space scene behind the services orbit (spins with scroll speed)
@@ -64,7 +64,7 @@ reference/original/       captured source of the original ChatGPT-built site (re
 | `brand` | `#1868db` | IT Together blue (sampled from logo): primary buttons, links |
 | `brand-2` | `#5b9bff` | hover / highlight blue |
 | `glow` | `#8be8ff` | eyebrows, active indicators |
-| `grow` / `serve` / `run` | `#5ee6ff` / `#5b9bff` / `#a596ff` | one accent per outcome, everywhere |
+| `grow` / `serve` / `save` | `#5ee6ff` / `#5b9bff` / `#a596ff` | one accent per outcome, everywhere |
 | `line` / `line-dark` | white 10% / ink 10% | borders on dark / light |
 
 - **Fonts** (`next/font`, in `layout.tsx`):
@@ -84,7 +84,7 @@ reference/original/       captured source of the original ChatGPT-built site (re
 - **Icons:** `Icon` in `ui.tsx` is a small inline-SVG set (24px grid, 1.6 stroke, round caps). Add new icons there with the same stroke style; no icon library.
 - **Reveal on scroll:** add the `reveal` class (native CSS scroll-driven animation; no JS).
 - **Scroll scenes:** wrap in `<ScrollStory screens={n} hold={0.25}>` and mark children with `data-beat`, `data-scrub-step`, `data-scrub-bar` (vertical), `data-scrub-bar-x` + `data-scrub-head` (horizontal) and `data-dot`. Pinned content must clear the sticky header (`story:pt-24`+). The `story:` variant (globals.css) is the pinned-scene breakpoint: 1200px+ with motion allowed.
-- **Pre-filled booking:** any link to `#start-grow` / `#start-serve` / `#start-run` / `#start-unsure` scrolls to the form with that focus chosen.
+- **Pre-filled booking:** any link to `#start-grow` / `#start-serve` / `#start-save` / `#start-unsure` scrolls to the form with that focus chosen.
 - **Scroll-driven CSS needs `overflow-clip`, not `overflow-hidden`,** on ancestors: `hidden` makes a scroll container and freezes `view()` timelines.
 - **Tech theme helpers:** `.tech-grid` (faded grid backdrop) and `.hud` (corner brackets) in `globals.css`. Visuals read `useScrollProgress()` (a ref; never put it in state). Full guide: `docs/scroll-animation-guide.md`.
 - **Two designs, one content source:** desktop = the `story:` variant (1200px+ with motion); everything else gets the phone/tablet design. Big sections render both via `Split` in `page.tsx` (`hidden story:block` / `story:hidden`); the anchor `id` sits on the shared wrapper, never inside. Phone versions live in `components/phone/` or next to the desktop one; copy still comes from `src/content/*`.

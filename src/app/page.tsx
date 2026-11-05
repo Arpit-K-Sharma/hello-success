@@ -300,9 +300,9 @@ function Process() {
         <ol className="relative grid gap-5 lg:grid-cols-4 lg:gap-8">
           {/* Mobile: vertical line drawn by CSS. Desktop: thick bar filled by scroll, with a glowing head. */}
           <span className="absolute top-0 bottom-0 left-6 w-px bg-white/10 lg:hidden" aria-hidden />
-          <span className="draw-line from-grow via-serve to-run absolute top-0 bottom-0 left-6 w-0.5 origin-top bg-linear-to-b lg:hidden" aria-hidden />
+          <span className="draw-line from-grow via-serve to-save absolute top-0 bottom-0 left-6 w-0.5 origin-top bg-linear-to-b lg:hidden" aria-hidden />
           <span className="absolute top-[1.375rem] right-0 left-0 hidden h-1 rounded-full bg-white/10 lg:block" aria-hidden>
-            <span data-scrub-bar-x className="from-grow via-serve to-run absolute inset-0 origin-left rounded-full bg-linear-to-r shadow-[0_0_24px_2px] shadow-glow/60" />
+            <span data-scrub-bar-x className="from-grow via-serve to-save absolute inset-0 origin-left rounded-full bg-linear-to-r shadow-[0_0_24px_2px] shadow-glow/60" />
             <span data-scrub-head className="absolute top-1/2 hidden size-5 -translate-1/2 rounded-full bg-white shadow-[0_0_24px_8px] shadow-glow story:block" />
           </span>
           {site.process.map((p, i) => (

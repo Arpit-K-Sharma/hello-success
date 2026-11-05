@@ -79,7 +79,7 @@ function Diagram() {
       ref={root}
       className="relative mx-auto aspect-[4/5] w-full max-w-[min(20rem,34svh)] [--c:0] [--o:0]"
       role="img"
-      aria-label="Your systems connect into one orchestration layer that drives Grow, Serve and Run"
+      aria-label="Your systems connect into one orchestration layer that drives Grow, Serve and Save"
     >
       {/* 3D core and stars behind, as on desktop. Core centre: 50% across, 40% down. */}
       {show3d && <CoreScene x={0.5} y={0.4} size={0.62} rings={false} className="[mask-image:radial-gradient(circle_at_50%_40%,#000_40%,transparent_72%)]" />}
@@ -142,7 +142,7 @@ function Diagram() {
         </span>
       </div>
 
-      {/* Grow / Serve / Run, wired to the core. */}
+      {/* Grow / Serve / Save, wired to the core. */}
       {o.outputs.map((r, i) => (
         <div
           key={r.id}

@@ -4,11 +4,11 @@
 export const site = {
   name: "Hello Success, powered by IT Together",
   description:
-    "AI automation, connected systems and smarter processes that help businesses grow revenue, serve customers better and run leaner.",
+    "AI automation, connected systems and smarter processes that help businesses grow revenue, serve customers better and save time and cost.",
   // In page order. `sections` = ids that light up this item while on screen.
   nav: [
     { label: "How it works", href: "#orchestration", sections: ["orchestration"] },
-    { label: "Outcomes", href: "#outcomes", sections: ["outcomes", "grow", "serve", "run"] },
+    { label: "Outcomes", href: "#outcomes", sections: ["outcomes", "grow", "serve", "save"] },
     { label: "Services", href: "#services", sections: ["services"] },
     { label: "Process", href: "#process", sections: ["process"] },
     { label: "Why us", href: "#why-us", sections: ["why-us"] },
@@ -53,7 +53,7 @@ export const site = {
   },
 
   // The orchestration layer (after the reference site's "connected business core"):
-  // scattered systems merge into one layer, which drives Grow, Serve and Run.
+  // scattered systems merge into one layer, which drives Grow, Serve and Save.
   orchestration: {
     beats: [
       {
@@ -73,7 +73,7 @@ export const site = {
       },
       {
         kicker: "03 · Perform",
-        heading: "Grow, Serve and Run from one system.",
+        heading: "Grow, Serve and Save from one system.",
         body: "The same layer wins more revenue, answers customers faster and takes admin off your team, and it gets sharper as it learns.",
       },
     ],
@@ -81,7 +81,7 @@ export const site = {
     outputs: [
       { id: "grow", verb: "Grow", label: "More revenue" },
       { id: "serve", verb: "Serve", label: "Happier customers" },
-      { id: "run", verb: "Run", label: "Leaner operations" },
+      { id: "save", verb: "Save", label: "Leaner operations" },
     ],
   },
 
@@ -213,7 +213,7 @@ export const site = {
     focus: [
       { id: "grow", label: "Grow revenue", hint: "Leads, sales, CRM" },
       { id: "serve", label: "Serve customers", hint: "Service, portals, response" },
-      { id: "run", label: "Run leaner", hint: "Admin, approvals, data entry" },
+      { id: "save", label: "Save time and cost", hint: "Admin, approvals, data entry" },
       { id: "unsure", label: "Not sure yet", hint: "Help me find the win" },
     ],
   },

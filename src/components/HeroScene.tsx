@@ -8,7 +8,7 @@ import { useScrollProgress } from "./ScrollStory";
 // Scroll timeline of the scene (p = smoothed scroll progress 0 → 1):
 //   0.00–0.45  scattered tools converge onto the core   (beat "Connect")
 //   0.30–0.60  links to the core switch on               (beat "Automate")
-//   0.55–0.85  Grow / Serve / Run rings appear            (beat "Grow")
+//   0.55–0.85  Grow / Serve / Save rings appear            (beat "Grow")
 const NODE_COUNT = 90;
 const OUTCOME_COLORS = ["#5ee6ff", "#5b9bff", "#a596ff"];
 const { smoothstep, damp } = THREE.MathUtils;

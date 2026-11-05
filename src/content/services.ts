@@ -2,7 +2,7 @@
 // Board feedback on what we offer or how it's worded = edit here only.
 
 export type Outcome = {
-  id: "grow" | "serve" | "run";
+  id: "grow" | "serve" | "save";
   verb: string;
   title: string;
   promise: string;
@@ -69,8 +69,8 @@ export const outcomes: Outcome[] = [
     },
   },
   {
-    id: "run",
-    verb: "Run",
+    id: "save",
+    verb: "Save",
     title: "Take the repetitive work off your team",
     promise:
       "Documents, approvals and data entry move through your systems automatically. People only step in when a decision is needed.",
@@ -116,7 +116,7 @@ export const services: Service[] = [
     name: "AI Automation & Agents",
     short: "AI assistants and agents that handle routine work and hand people the decisions.",
     icon: "agent",
-    outcomes: ["grow", "serve", "run"],
+    outcomes: ["grow", "serve", "save"],
     forWho: "Teams buried in repetitive questions, emails, data entry or document handling.",
     problems: [
       "Staff answer the same questions every day",
@@ -162,7 +162,7 @@ export const services: Service[] = [
     name: "Process Automation & RPA",
     short: "Approvals, data movement and back-office tasks that run themselves.",
     icon: "flow",
-    outcomes: ["run"],
+    outcomes: ["save"],
     forWho: "Operations and finance teams handling high volumes of repeatable work.",
     problems: ["Approvals stuck in email", "Copy-paste between systems", "Errors from manual handling"],
     whatWeDo: [
@@ -183,7 +183,7 @@ export const services: Service[] = [
     name: "Systems Integration & ERP",
     short: "Your CRM, ERP, finance and tools talking to each other. No more re-keying.",
     icon: "link",
-    outcomes: ["run", "grow"],
+    outcomes: ["save", "grow"],
     forWho: "Businesses running on disconnected systems and spreadsheets in between.",
     problems: ["Data out of sync between systems", "Spreadsheets as glue", "Legacy systems nobody can change"],
     whatWeDo: [
@@ -204,7 +204,7 @@ export const services: Service[] = [
     name: "Cloud & Digital Platforms",
     short: "Modern, secure cloud foundations and customer-facing portals.",
     icon: "cloud",
-    outcomes: ["serve", "run"],
+    outcomes: ["serve", "save"],
     forWho: "Organisations moving off ageing infrastructure or launching digital services.",
     problems: ["Slow, ageing on-premise systems", "No self-service for customers", "Rising infrastructure costs"],
     whatWeDo: [
@@ -225,7 +225,7 @@ export const services: Service[] = [
     name: "Data, Reporting & Security",
     short: "Trusted data, live dashboards and security built in from day one.",
     icon: "shield",
-    outcomes: ["grow", "serve", "run"],
+    outcomes: ["grow", "serve", "save"],
     forWho: "Leaders who can't get a straight answer from their data, or worry about who can see it.",
     problems: ["Reports take days to build", "Conflicting numbers", "Unclear access & security controls"],
     whatWeDo: [

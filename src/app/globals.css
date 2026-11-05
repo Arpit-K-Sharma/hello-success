@@ -20,7 +20,7 @@
   /* One accent per outcome, used across hero, chapters and services. */
   --color-grow: #5ee6ff;
   --color-serve: #5b9bff;
-  --color-run: #a596ff;
+  --color-save: #a596ff;
 
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-display: var(--font-heading), var(--font-body), system-ui, sans-serif;

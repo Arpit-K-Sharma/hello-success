@@ -10,7 +10,7 @@ const field =
 const accent = (id: string) => (id === "unsure" ? "var(--color-glow)" : `var(--color-${id})`);
 
 // Board preview: nothing is sent. Wire to email/CRM before launch.
-// Links to `#start-grow` (serve / run / unsure) arrive with that focus picked.
+// Links to `#start-grow` (serve / save / unsure) arrive with that focus picked.
 export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [brief, setBrief] = useState({ focus: "", now: "", better: "", name: "", company: "" });

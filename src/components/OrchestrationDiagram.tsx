@@ -37,7 +37,7 @@ const pct = (v: number, of: number) => `${(v / of) * 100}%`;
  * Scroll story (beats: intro, Connect, Orchestrate, Perform):
  *   c  systems drift, then get pulled into the core and absorbed (lines to the core throughout)
  *   l  signals flow along the lines; the core powers up as it takes them in
- *   o  the core connects to Grow / Serve / Run: lines draw out, result boxes slide in
+ *   o  the core connects to Grow / Serve / Save: lines draw out, result boxes slide in
  * Mobile / reduced motion / no JS: a static, finished diagram.
  */
 export function OrchestrationDiagram() {
@@ -104,7 +104,7 @@ export function OrchestrationDiagram() {
       ref={root}
       className="orch relative aspect-[6/5] w-full"
       role="img"
-      aria-label="Your systems connect into one orchestration layer that observes, decides, acts and learns, and drives Grow, Serve and Run"
+      aria-label="Your systems connect into one orchestration layer that observes, decides, acts and learns, and drives Grow, Serve and Save"
     >
       {/* 3D core (desktop), the same space scene as the services orbit. */}
       {isDesk && <CoreScene x={CORE.x / W} y={CORE.y / H} size={0.95} rings={false} className="[mask-image:radial-gradient(circle,#000_45%,transparent_72%)]" />}
