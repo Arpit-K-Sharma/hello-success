@@ -65,8 +65,9 @@ function Hero() {
   return (
     <ScrollStory screens={4} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
       <div className="relative flex h-full flex-col">
-        <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 story:py-0">
-          <div data-beats className="max-w-2xl space-y-14 story:space-y-0">
+        {/* Pinned: clear the sticky header; data-fit shrinks the copy on short screens. */}
+        <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 story:pt-24 story:pb-10">
+          <div data-beats data-fit className="max-w-2xl origin-left space-y-14 story:items-center story:space-y-0">
             <div data-beat="0" className="space-y-8">
               <Eyebrow>{hero.eyebrow}</Eyebrow>
               <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
