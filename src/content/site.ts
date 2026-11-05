@@ -1,7 +1,5 @@
-// Site-wide copy. Stats, clients, quotes and contact details are placeholders
-// for the board review; swap in real data before launch.
-
-const img = (id: string, w = 1200) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+// Site-wide copy. Problem stats and contact details are placeholders until
+// the sourced figures and real details go in (docs/content-plan.md).
 
 export const site = {
   name: "Hello Success × IT Together",
@@ -13,7 +11,6 @@ export const site = {
     { label: "Outcomes", href: "#outcomes", sections: ["outcomes", "grow", "serve", "run"] },
     { label: "Services", href: "#services", sections: ["services"] },
     { label: "Process", href: "#process", sections: ["process"] },
-    { label: "Results", href: "#results", sections: ["results"] },
   ],
   cta: { label: "Book a discovery call", short: "Book a call", href: "#contact" },
 
@@ -122,64 +119,6 @@ export const site = {
     { step: "Advance", phase: "Technology", text: "After launch we stay on, keep improving and line up your next win." },
   ],
 
-  stats: [
-    { value: "30+", label: "years of business and technology delivery" },
-    { value: "150+", label: "systems connected" },
-    { value: "12k", label: "staff hours returned each year" },
-    { value: "98%", label: "client retention" },
-  ],
-
-  caseStudies: [
-    {
-      client: "Harbour Health Group",
-      sector: "Healthcare · 12 clinics",
-      outcome: "grow" as const,
-      before: "2 days",
-      after: "15 min",
-      metric: "lead response time",
-      summary: "Rebuilt CRM with automated lead capture, scoring and follow-up.",
-    },
-    {
-      client: "Northwind Logistics",
-      sector: "Transport & logistics",
-      outcome: "run" as const,
-      before: "0%",
-      after: "62%",
-      metric: "customer emails answered automatically",
-      summary: "An AI agent reads, classifies and replies, escalating only exceptions.",
-    },
-    {
-      client: "Summit Building Supplies",
-      sector: "Trade & wholesale",
-      outcome: "serve" as const,
-      before: "1,200",
-      after: "720",
-      metric: "service calls a month",
-      summary: "A customer portal connected to ERP and dispatch. Customers track orders themselves.",
-    },
-  ],
-
-  testimonials: [
-    {
-      quote: "They fixed our process first and then automated it. That's why it actually stuck.",
-      name: "Sarah Mitchell",
-      role: "COO, Northwind Logistics",
-      avatar: img("1573497019940-1c28c88b4f3e", 160),
-    },
-    {
-      quote: "Our sales team finally trusts the CRM. Follow-ups happen without anyone thinking about it.",
-      name: "James Carter",
-      role: "Head of Sales, Harbour Health Group",
-      avatar: img("1507003211169-0a1dd7228f2d", 160),
-    },
-    {
-      quote: "We went from five spreadsheets to one live dashboard in six weeks.",
-      name: "Priya Nair",
-      role: "CFO, Redgum Financial",
-      avatar: img("1580489944761-15a19d654956", 160),
-    },
-  ],
-
   faqs: [
     {
       q: "Do we need to replace our current systems?",
@@ -205,8 +144,8 @@ export const site = {
 
   itTogether: {
     eyebrow: "Powered by IT Together",
-    text: "A new practice from IT Together, built on thirty years of technology delivery.",
-    proof: ["30+ years of IT delivery", "IT-qualified engineers", "Major CRM implementation partner"],
+    text: "A new practice from IT Together.",
+    proof: ["IT-qualified engineers", "Major CRM implementation partner"],
   },
 
   discovery: {

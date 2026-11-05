@@ -137,9 +137,8 @@ export function ServiceCatalogue() {
               </ol>
             </Block>
             <div className="rounded-2xl border border-brand/40 bg-brand/10 p-5">
-              <p className="label mb-2 text-white/60">Example result</p>
-              <p className="font-display text-2xl font-semibold">{s.example.result}</p>
-              <p className="text-white/60">{s.example.client}</p>
+              <p className="label mb-2 text-white/60">What changes</p>
+              <p className="font-display text-2xl font-semibold">{s.change}</p>
             </div>
             <a href="#contact" onClick={() => dialog.current?.close()} className="bg-brand hover:bg-brand-2 block rounded-full py-4 text-center text-lg font-medium transition">
               Talk to us about {s.name}

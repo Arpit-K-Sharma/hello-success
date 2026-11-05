@@ -90,7 +90,8 @@ export type Service = {
   whatWeDo: string[];
   deliverables: string[];
   engagement: { phase: string; length: string }[];
-  example: { client: string; result: string };
+  /** What changes for the client. No numbers or client names until they are real. */
+  change: string;
 };
 
 export const services: Service[] = [
@@ -117,7 +118,7 @@ export const services: Service[] = [
       { phase: "Pilot", length: "4 to 6 weeks" },
       { phase: "Scale", length: "Ongoing" },
     ],
-    example: { client: "Northwind Logistics", result: "62% of customer emails answered automatically" },
+    change: "Routine questions and data entry get handled without anyone touching them. Your team steps in only for the decisions.",
   },
   {
     slug: "crm-revenue",
@@ -138,7 +139,7 @@ export const services: Service[] = [
       { phase: "Implement", length: "6 to 10 weeks" },
       { phase: "Adopt & optimise", length: "Ongoing" },
     ],
-    example: { client: "Harbour Health Group", result: "Lead response time cut from 2 days to 15 minutes" },
+    change: "Every lead has an owner and a next step, and your team finally trusts the forecast.",
   },
   {
     slug: "process-automation",
@@ -159,7 +160,7 @@ export const services: Service[] = [
       { phase: "Build", length: "3 to 6 weeks per process" },
       { phase: "Run & improve", length: "Ongoing" },
     ],
-    example: { client: "Summit Building Supplies", result: "Invoice processing time reduced by 80%" },
+    change: "Approvals and paperwork move on their own. Only the exceptions land on someone's desk.",
   },
   {
     slug: "integration",
@@ -180,7 +181,7 @@ export const services: Service[] = [
       { phase: "Connect", length: "4 to 8 weeks" },
       { phase: "Support", length: "Ongoing" },
     ],
-    example: { client: "Coastal Wholesale Co.", result: "7 systems connected; zero manual re-keying" },
+    change: "Information is entered once and appears everywhere it's needed. No more re-keying between systems.",
   },
   {
     slug: "cloud-digital",
@@ -201,7 +202,7 @@ export const services: Service[] = [
       { phase: "Migrate & build", length: "6 to 12 weeks" },
       { phase: "Manage", length: "Ongoing" },
     ],
-    example: { client: "Brightside Education", result: "Infrastructure costs down 35% after migration" },
+    change: "Customers help themselves through a portal, and your systems run on a platform built to grow with you.",
   },
   {
     slug: "data-security",
@@ -222,6 +223,6 @@ export const services: Service[] = [
       { phase: "Build", length: "4 to 6 weeks" },
       { phase: "Govern", length: "Ongoing" },
     ],
-    example: { client: "Redgum Financial", result: "Month-end reporting from 5 days to live" },
+    change: "Everyone works from the same live numbers, and you know exactly who can see what.",
   },
 ];

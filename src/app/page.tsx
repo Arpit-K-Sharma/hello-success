@@ -39,7 +39,6 @@ export default function Home() {
         </div>
         <Services />
         <Process />
-        <Results />
         <PoweredBy />
         <Faq />
         <Contact />
@@ -326,69 +325,6 @@ function Process() {
         </ol>
       </div>
     </ScrollStory>
-  );
-}
-
-function Results() {
-  return (
-    <section id="results" className="relative overflow-clip bg-navy py-20 story:py-28">
-      <div className="shell space-y-12 story:space-y-20">
-        <div className="reveal max-w-3xl space-y-5">
-          <Eyebrow>Results</Eyebrow>
-          <h2 className={H2}>Numbers our clients now report to their boards.</h2>
-        </div>
-
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4 story:gap-x-8 story:gap-y-12">
-          {site.stats.map((s) => (
-            <div key={s.label} className="reveal">
-              <dt className="font-display from-glow to-brand-2 bg-linear-to-br bg-clip-text text-5xl font-semibold text-transparent sm:text-7xl xl:text-8xl">{s.value}</dt>
-              <dd className="mt-3 text-lg text-white/75">{s.label}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="reveal hidden grid-cols-3 gap-6 story:grid">
-          {site.caseStudies.map((c) => <CaseStudy key={c.client} c={c} />)}
-        </div>
-        <div className="story:hidden">
-          <Stories label="Case studies">
-            {site.caseStudies.map((c) => <CaseStudy key={c.client} c={c} />)}
-          </Stories>
-        </div>
-
-        <div className="grid gap-6 story:grid-cols-3">
-          {site.testimonials.map((t, i) => (
-            <figure key={t.name} className={`reveal ${i > 0 ? "hidden story:flex" : "flex"} flex-col justify-between gap-8 border-l-2 border-brand-2 pl-6`}>
-              <blockquote className="font-display text-2xl leading-snug">“{t.quote}”</blockquote>
-              <figcaption className="flex items-center gap-4">
-                <Image src={t.avatar} alt="" width={56} height={56} className="size-14 rounded-full object-cover" />
-                <span>
-                  <span className="block text-lg font-medium">{t.name}</span>
-                  <span className="text-white/65">{t.role}</span>
-                </span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CaseStudy({ c }: { c: (typeof site.caseStudies)[number] }) {
-  return (
-    <article style={{ "--accent": `var(--color-${c.outcome})` } as React.CSSProperties} className="relative w-full overflow-hidden rounded-3xl border border-line bg-void p-6 story:p-8">
-      <span className="bg-(--accent) absolute inset-x-0 top-0 h-1" aria-hidden />
-      <p className="label text-(--accent)">{outcomes.find((o) => o.id === c.outcome)?.verb}</p>
-      <div className="font-display mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 story:mt-6">
-        <span className="text-2xl whitespace-nowrap text-white/45 line-through decoration-1 story:text-3xl">{c.before}</span>
-        <Icon name="arrow" className="size-6 shrink-0 self-center text-white/50" />
-        <span className="text-4xl font-semibold whitespace-nowrap text-(--accent) sm:text-5xl">{c.after}</span>
-      </div>
-      <p className="mt-2 text-xl font-medium">{c.metric}</p>
-      <p className="mt-4 text-white/70 story:mt-6 story:text-lg">{c.summary}</p>
-      <p className="label mt-4 border-t border-line pt-4 text-white/60 story:mt-6 story:pt-5">{c.client} · {c.sector}</p>
-    </article>
   );
 }
 
