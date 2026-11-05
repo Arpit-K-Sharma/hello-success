@@ -21,7 +21,7 @@ export default function Home() {
       <main>
         <Split id="top" desk={<Hero />} phone={<PhoneHero />} />
         <Problem />
-        <Split id="orchestration" desk={<Orchestration />} phone={<PhoneOrchestration />} />
+        <Split id="process" desk={<Orchestration />} phone={<PhoneOrchestration />} />
         <div id="outcomes">
           <OutcomesIntro />
           <div className="hidden story:block">
@@ -38,7 +38,6 @@ export default function Home() {
           </div>
         </div>
         <Services />
-        <Process />
         <WhyUs />
         <PoweredBy />
         <Faq />
@@ -283,40 +282,6 @@ function Services() {
         <p className="max-w-xl text-xl text-white/75">Each one stands alone or combines into one program.</p>
       </div>
       <ServiceCatalogue />
-    </ScrollStory>
-  );
-}
-
-function Process() {
-  return (
-    <ScrollStory id="process" screens={3} hold={0.6}>
-      <div className="tech-grid absolute inset-0" aria-hidden />
-      <div className="shell relative flex h-full flex-col justify-center py-20 story:pt-24 story:pb-10">
-        <div className="mb-12 max-w-3xl space-y-5 story:mb-20">
-          <Eyebrow>Our process</Eyebrow>
-          <h2 className={H2}>Process first. Technology second.</h2>
-          <p className="text-xl text-white/75">One team and one thread of accountability, from the first conversation to the next improvement.</p>
-        </div>
-        <ol className="relative grid gap-5 lg:grid-cols-4 lg:gap-8">
-          {/* Mobile: vertical line drawn by CSS. Desktop: thick bar filled by scroll, with a glowing head. */}
-          <span className="absolute top-0 bottom-0 left-6 w-px bg-white/10 lg:hidden" aria-hidden />
-          <span className="draw-line from-grow via-serve to-save absolute top-0 bottom-0 left-6 w-0.5 origin-top bg-linear-to-b lg:hidden" aria-hidden />
-          <span className="absolute top-[1.375rem] right-0 left-0 hidden h-1 rounded-full bg-white/10 lg:block" aria-hidden>
-            <span data-scrub-bar-x className="from-grow via-serve to-save absolute inset-0 origin-left rounded-full bg-linear-to-r shadow-[0_0_24px_2px] shadow-glow/60" />
-            <span data-scrub-head className="absolute top-1/2 hidden size-5 -translate-1/2 rounded-full bg-white shadow-[0_0_24px_8px] shadow-glow story:block" />
-          </span>
-          {site.process.map((p, i) => (
-            <li key={p.step} data-scrub-step className="relative pl-20 lg:pt-20 lg:pl-0">
-              <span className="font-display bg-void text-glow border-glow/60 absolute top-0 left-0 grid size-12 place-items-center rounded-full border text-lg font-semibold shadow-[0_0_30px_-6px] shadow-glow">
-                {i + 1}
-              </span>
-              <p className={`label mb-1 ${p.phase === "Consulting" ? "text-glow" : "text-brand-2"}`}>{p.phase}</p>
-              <h3 className="font-display text-2xl font-semibold">{p.step}</h3>
-              <p className="mt-2 text-lg text-white/75">{p.text}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
     </ScrollStory>
   );
 }

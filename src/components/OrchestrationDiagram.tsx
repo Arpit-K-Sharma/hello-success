@@ -34,10 +34,13 @@ const tags = o.tags.map((name, i) => ({
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
 /**
- * Scroll story (beats: intro, Connect, Orchestrate, Perform):
- *   c  systems drift, then get pulled into the core and absorbed (lines to the core throughout)
- *   l  signals flow along the lines; the core powers up as it takes them in
- *   o  the core connects to Grow / Serve / Save: lines draw out, result boxes slide in
+ * Scroll story (beats: intro, Discover, Redesign, Build, Run; beat k sits at p = k / 4.25):
+ *   s  Discover: a scan sweeps the scattered, drifting systems
+ *   f  Discover: the bottlenecks light up red
+ *   t  Redesign: the systems stop drifting and line up on a tidy arc; planned links appear
+ *   c  Build: the systems are pulled into the core (one layer) and absorbed
+ *   l  Build: signals flow along the links; the core powers up
+ *   o  Run: Grow / Serve / Save ("What you get") draw out of the core
  * Mobile / reduced motion / no JS: a static, finished diagram.
  */
 export function OrchestrationDiagram() {
@@ -59,13 +62,14 @@ export function OrchestrationDiagram() {
       const dt = Math.min((now - prev) / 1000, 0.1);
       prev = now;
       p = damp(p, progress.current, 6, dt);
-      const c = smoothstep(p, 0.1, 0.5);
+      const tidy = smoothstep(p, 0.3, 0.46);
+      const c = smoothstep(p, 0.54, 0.7);
       const t = now / 1000;
       tags.forEach((g, i) => {
-        // Asteroid drift fades out as the core pulls them in.
-        const drift = 1 - c;
-        const x = lerp(g.sx, CORE.x, c) + Math.sin(t * 0.5 + g.phase) * 14 * drift;
-        const y = lerp(g.sy, CORE.y, c) + Math.cos(t * 0.4 + g.phase) * 10 * drift;
+        // Asteroid drift until Redesign lines them up on the arc; Build pulls them into the core.
+        const drift = 1 - tidy;
+        const x = lerp(lerp(g.sx, g.mx, tidy), CORE.x, c) + Math.sin(t * 0.5 + g.phase) * 14 * drift;
+        const y = lerp(lerp(g.sy, g.my, tidy), CORE.y, c) + Math.cos(t * 0.4 + g.phase) * 10 * drift;
         const el = tagEls[i].style;
         el.left = pct(x, W);
         el.top = pct(y, H);
@@ -77,9 +81,13 @@ export function OrchestrationDiagram() {
           l.setAttribute("y1", String(y));
         });
       });
-      box.style.setProperty("--c", String(c));
-      box.style.setProperty("--l", String(smoothstep(p, 0.15, 0.4)));
-      box.style.setProperty("--o", String(smoothstep(p, 0.6, 0.85)));
+      const set = (k: string, v: number) => box.style.setProperty(k, String(v));
+      set("--s", smoothstep(p, 0.1, 0.2) * (1 - smoothstep(p, 0.3, 0.4)));
+      set("--f", smoothstep(p, 0.15, 0.24) * (1 - smoothstep(p, 0.36, 0.46)));
+      set("--t", tidy);
+      set("--c", c);
+      set("--l", smoothstep(p, 0.56, 0.68));
+      set("--o", smoothstep(p, 0.78, 0.92));
     };
     // Only animate while the diagram is on screen.
     const io = new IntersectionObserver(([e]) => {
@@ -104,7 +112,7 @@ export function OrchestrationDiagram() {
       ref={root}
       className="orch relative aspect-[6/5] w-full"
       role="img"
-      aria-label="Your systems connect into one orchestration layer that observes, decides, acts and learns, and drives Grow, Serve and Save"
+      aria-label="Our process: we discover the bottlenecks across your systems, redesign the process, build one connected layer, and run it to deliver Grow, Serve and Save"
     >
       {/* 3D core (desktop), the same space scene as the services orbit. */}
       {isDesk && <CoreScene x={CORE.x / W} y={CORE.y / H} size={0.95} rings={false} className="[mask-image:radial-gradient(circle,#000_45%,transparent_72%)]" />}
@@ -113,11 +121,19 @@ export function OrchestrationDiagram() {
         {/* Every system is linked to the core; signals flow along the links as they are pulled in. */}
         {tags.map((t, i) => (
           <g key={t.name}>
-            <line data-link={i} x1={t.mx} y1={t.my} x2={CORE.x} y2={CORE.y} className="stroke-brand-2/35" strokeWidth={1.2} strokeDasharray="4 5" />
+            <line data-link={i} x1={t.mx} y1={t.my} x2={CORE.x} y2={CORE.y} className="stroke-brand-2/35" strokeWidth={1.2} strokeDasharray="4 5" style={{ opacity: "var(--t, 1)" }} />
             <line data-link={i} x1={t.mx} y1={t.my} x2={CORE.x} y2={CORE.y} pathLength={1} className="orch-flow stroke-glow" strokeWidth={2.2} style={{ opacity: "var(--l)", animationDelay: `${i * -0.17}s` }} />
           </g>
         ))}
-        {/* Outputs: nothing shows until Perform, then each line draws out of the core. */}
+        {/* Discover: a radar wedge sweeps around the core across the scattered systems. */}
+        <g style={{ opacity: "var(--s, 0)" }}>
+          <circle cx={CORE.x} cy={CORE.y} r={235} fill="none" className="stroke-glow/25" strokeWidth={1} />
+          <g className="animate-[spin_3.5s_linear_infinite]" style={{ transformOrigin: `${CORE.x}px ${CORE.y}px`, transformBox: "view-box" }}>
+            <path d={`M${CORE.x} ${CORE.y} L${CORE.x + 235} ${CORE.y} A235 235 0 0 0 ${CORE.x + 235 * Math.cos(0.6)} ${CORE.y - 235 * Math.sin(0.6)} Z`} className="fill-glow/15" />
+            <line x1={CORE.x} y1={CORE.y} x2={CORE.x + 235} y2={CORE.y} className="stroke-glow" strokeWidth={2} />
+          </g>
+        </g>
+        {/* Run: nothing shows until then, then each line draws out of the core. */}
         {OUT_Y.map((y, i) => {
           const d = `M${CORE.x + 70} ${CORE.y} C${CORE.x + 140} ${CORE.y} ${OUT_X - 140} ${y} ${OUT_X - 60} ${y}`;
           const color = `var(--color-${o.outputs[i].id})`;
@@ -138,6 +154,10 @@ export function OrchestrationDiagram() {
           className="font-display absolute z-10 -translate-1/2 rounded-full border border-glow/40 bg-navy-2/95 px-2 py-0.5 text-[0.62rem] font-semibold whitespace-nowrap text-white/90 shadow-[0_0_18px_-6px] shadow-glow backdrop-blur sm:px-3 sm:py-1 sm:text-sm"
           style={{ left: pct(t.mx, W), top: pct(t.my, H) }}
         >
+          {/* Discover: bottlenecks flagged red. */}
+          {o.bottlenecks.includes(t.name) && (
+            <span className="absolute -inset-1 rounded-full border-2 border-red-500 shadow-[0_0_18px_2px] shadow-red-500/70" style={{ opacity: "var(--f, 0)" }} aria-hidden />
+          )}
           {t.name}
         </span>
       ))}
@@ -162,7 +182,10 @@ export function OrchestrationDiagram() {
         </span>
       </div>
 
-      {/* Results slide in from the right at Perform */}
+      {/* Run: "What you get" (Grow / Serve / Save) slides in from the right. */}
+      <p className="label absolute z-10 -translate-x-1/2 !text-[0.55rem] whitespace-nowrap text-white/70 sm:!text-[0.7rem]" style={{ left: pct(OUT_X, W), top: pct(OUT_Y[0] - 62, H), opacity: "var(--o)" }}>
+        {o.resultsLabel}
+      </p>
       {o.outputs.map((r, i) => (
         <div
           key={r.id}

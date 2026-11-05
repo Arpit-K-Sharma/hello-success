@@ -20,23 +20,24 @@ const ring = o.tags.map((name, i) => {
 const OUT_X = [16, 50, 84];
 const CoreScene = dynamic(() => import("../CoreScene"), { ssr: false });
 
-/** Phone design: diagram on top, the beats (Connect, Orchestrate, Perform) swap underneath. */
+/** Phone design: diagram on top; the intro, then Discover, Redesign, Build, Run swap underneath. */
 export function PhoneOrchestration() {
   return (
-    <ScrollStory mode="phone" screens={3.5} className="overflow-x-clip border-y border-line bg-void">
+    <ScrollStory mode="phone" screens={4.5} className="overflow-x-clip border-y border-line bg-void">
       <div className="tech-grid absolute inset-0" aria-hidden />
       <div className="shell relative flex h-full flex-col justify-center gap-5 pt-22 pb-24">
         <Diagram />
         <div data-beats className="mx-auto w-full max-w-xl space-y-8">
-          {o.beats.map((b, i) => (
-            <div key={b.kicker} data-beat={i} className="space-y-3">
-              <Eyebrow>{b.kicker}</Eyebrow>
-              {i === 0 ? (
-                <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-tight sm:text-4xl">{b.heading}</h2>
-              ) : (
-                <h3 className="font-display text-2xl leading-[1.1] font-semibold tracking-tight sm:text-3xl">{b.heading}</h3>
-              )}
-              <p className="text-white/75">{b.body}</p>
+          <div data-beat={0} className="space-y-3">
+            <Eyebrow>{o.intro.eyebrow}</Eyebrow>
+            <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-tight sm:text-4xl">{o.intro.title}</h2>
+            <p className="text-white/75">{o.intro.body}</p>
+          </div>
+          {o.steps.map((s, i) => (
+            <div key={s.step} data-beat={i + 1} className="space-y-3">
+              <Eyebrow>0{i + 1} · {s.phase}</Eyebrow>
+              <h3 className="font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl">{s.step}</h3>
+              <p className="text-white/75">{s.text}</p>
             </div>
           ))}
         </div>
@@ -67,8 +68,9 @@ function Diagram() {
       raf = requestAnimationFrame(frame);
       p = damp(p, progress.current, 6, Math.min((now - prev) / 1000, 0.1));
       prev = now;
-      box.setProperty("--c", String(smoothstep(p, 0.3, 0.68)));
-      box.setProperty("--o", String(smoothstep(p, 0.7, 0.9)));
+      box.setProperty("--f", String(smoothstep(p, 0.15, 0.24) * (1 - smoothstep(p, 0.36, 0.46))));
+      box.setProperty("--c", String(smoothstep(p, 0.54, 0.7)));
+      box.setProperty("--o", String(smoothstep(p, 0.78, 0.92)));
     };
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
@@ -79,7 +81,7 @@ function Diagram() {
       ref={root}
       className="relative mx-auto aspect-[4/5] w-full max-w-[min(20rem,34svh)] [--c:0] [--o:0]"
       role="img"
-      aria-label="Your systems connect into one orchestration layer that drives Grow, Serve and Save"
+      aria-label="Our process: we discover the bottlenecks across your systems, redesign the process, build one connected layer, and run it to deliver Grow, Serve and Save"
     >
       {/* 3D core and stars behind, as on desktop. Core centre: 50% across, 40% down. */}
       {show3d && <CoreScene x={0.5} y={0.4} size={0.62} rings={false} className="[mask-image:radial-gradient(circle_at_50%_40%,#000_40%,transparent_72%)]" />}
@@ -123,6 +125,10 @@ function Diagram() {
             opacity: "calc(1.4 - var(--c) * 1.4)",
           }}
         >
+          {/* Discover: bottlenecks flagged red. */}
+          {o.bottlenecks.includes(t.name) && (
+            <span className="absolute -inset-0.5 rounded-full border-2 border-red-500 shadow-[0_0_12px_1px] shadow-red-500/70" style={{ opacity: "var(--f, 0)" }} />
+          )}
           {t.name}
         </span>
       ))}

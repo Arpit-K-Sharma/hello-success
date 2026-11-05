@@ -16,13 +16,14 @@ Marketing site for **Hello Success × IT Together**, a new practice launched by 
 ## Structure
 ```
 src/content/services.ts   outcomes (Grow/Serve/Save) + 6 services: all service copy
-src/content/site.ts       nav, hero (what Hello Success is + Discover, Redesign, Automate), problem, orchestration, stats, case studies, IT Together, discovery, FAQs
+src/content/site.ts       nav, hero, our process (orchestration: Discover, Redesign, Build, Run), what you get intro, problem, why us, IT Together, discovery, FAQs
 src/app/page.tsx          single page; one function per section, in scroll order
 src/app/globals.css       design tokens (@theme static), ScrollStory CSS, reveal animation
 src/components/
   ui.tsx                  Lockup, Eyebrow, Icon, ButtonLink
-  Orchestration.tsx       pinned scene: scattered systems converge on the core, which sends out Grow/Serve/Save
-  OrchestrationDiagram.tsx  converge diagram (reference "business core" + 3D CoreScene); scroll sets --c/--l/--o
+  Orchestration.tsx       "Our process" pinned scene: intro + Discover, Redesign, Build, Run, with a step tracker
+  OrchestrationDiagram.tsx  the process diagram: scan + bottleneck flags (Discover), tidy arc (Redesign), converge on the core (Build),
+                          Grow/Serve/Save out (Run); scroll sets --s/--f/--t/--c/--l/--o
   Inbox.tsx               problem section: static Outlook-style inbox
   CoreScene.tsx           R3F space scene behind the services orbit (spins with scroll speed)
   ScrollStory.tsx         pinned scroll = video engine (mode "desk" | "phone") + useScrollProgress() + useMedia()

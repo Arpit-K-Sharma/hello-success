@@ -81,7 +81,8 @@ export function ScrollStory({
             onUpdate: (self) => {
               progress.current = self.progress;
               const active = Math.round(self.progress * (beats.length - 1));
-              dots.forEach((d, i) => d.toggleAttribute("data-active", i === active));
+              // Match by the data-dot value (the beat it stands for), not list position.
+              dots.forEach((d) => d.toggleAttribute("data-active", Number(d.dataset.dot) === active));
             },
           },
         });

@@ -71,23 +71,6 @@ body {
   .core-ring { animation: none; }
 }
 
-/* Process line draws itself as the section scrolls through. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .draw-line {
-      animation: draw linear both;
-      animation-timeline: view();
-      animation-range: entry 20% cover 55%;
-    }
-  }
-}
-@keyframes draw {
-  from { transform: scaleX(0); }
-}
-@media (max-width: 1023px) {
-  @keyframes draw { from { transform: scaleY(0); } }
-}
-
 /* FAQ: animate <details> open/close where supported. */
 :root { interpolate-size: allow-keywords; }
 details::details-content {

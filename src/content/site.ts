@@ -7,10 +7,9 @@ export const site = {
     "AI automation, connected systems and smarter processes that help businesses grow revenue, serve customers better and save time and cost.",
   // In page order. `sections` = ids that light up this item while on screen.
   nav: [
-    { label: "Our process", href: "#orchestration", sections: ["orchestration"] },
+    { label: "Our process", href: "#process", sections: ["process"] },
     { label: "What you get", href: "#outcomes", sections: ["outcomes", "grow", "serve", "save"] },
     { label: "Services", href: "#services", sections: ["services"] },
-    { label: "Process", href: "#process", sections: ["process"] },
     { label: "Why us", href: "#why-us", sections: ["why-us"] },
   ],
   cta: { label: "Book a discovery call", href: "#contact" },
@@ -52,31 +51,41 @@ export const site = {
     frames: null as null | { dir: string; count: number; ext: "webp" | "jpg" },
   },
 
-  // The orchestration layer (after the reference site's "connected business core"):
-  // scattered systems merge into one layer, which drives Grow, Serve and Save.
+  // OUR PROCESS: the main thing we promote, told as one pinned scene (nav "Our process").
+  // How we work: Discover, Redesign, Build, Run. What the client gets: Grow, Serve, Save (outputs).
+  // In the diagram: Discover scans the scattered systems and flags bottlenecks, Redesign lines
+  // them up, Build connects them into one layer, Run sends out the results.
   orchestration: {
-    beats: [
+    intro: {
+      eyebrow: "Our process",
+      title: "Discover. Redesign. Build. Run.",
+      body: "Process first, technology second. One team takes you from the first conversation to results that keep improving.",
+    },
+    steps: [
       {
-        kicker: "The orchestration layer",
-        heading: "Everything flows in. Results flow out.",
-        body: "Most businesses already own good software. The cost is in the gaps between it. We add one layer across your systems that makes them work as one.",
+        step: "Discover",
+        phase: "Consulting",
+        text: "Goals, people, processes and systems. We find the real bottleneck, and you get a written plan with prices and dates before anything is built.",
       },
       {
-        kicker: "01 · Connect",
-        heading: "Stop adding tools. Start connecting them.",
-        body: "Your CRM, finance system, inbox, service desk and spreadsheets already hold the information. We connect them, using thousands of available connection points.",
+        step: "Redesign",
+        phase: "Consulting",
+        text: "We simplify the process before choosing any technology, so we automate the right work, not today's workarounds.",
       },
       {
-        kicker: "02 · Orchestrate",
-        heading: "One layer that sees, decides and acts.",
-        body: "It notices what happens in every system, applies your rules and AI, and moves the work on. People approve anything that matters.",
+        step: "Build",
+        phase: "Technology",
+        text: "No report on a shelf. We connect your systems into one layer and build the automation and AI that does the work. People approve anything that matters.",
       },
       {
-        kicker: "03 · Perform",
-        heading: "Grow, Serve and Save from one system.",
-        body: "The same layer wins more revenue, answers customers faster and takes admin off your team, and it gets sharper as it learns.",
+        step: "Run",
+        phase: "Technology",
+        text: "We stay on after launch, report against the measures we agreed, and keep improving it the more your team uses it.",
       },
     ],
+    // Systems flagged red at Discover.
+    bottlenecks: ["Email", "Spreadsheets", "Service desk"],
+    resultsLabel: "What you get",
     tags: ["CRM", "Email", "Finance", "ERP", "Service desk", "Spreadsheets", "Website", "Data", "AI", "Cloud"],
     outputs: [
       { id: "grow", verb: "Grow", label: "More revenue" },
@@ -118,30 +127,6 @@ export const site = {
     sources: "Sources: Microsoft Work Trend Index 2025; MuleSoft Connectivity Benchmark 2025; Harvard Business Review 2011.",
     closer: ["We fix the process,", "connect your systems", "and automate the rest, with AI where it pays off."],
   },
-
-  // The one step model used across the site (CEO feedback): Discover, Redesign, Build, Run.
-  process: [
-    {
-      step: "Discover",
-      phase: "Consulting",
-      text: "Goals, people, processes and systems. We find the real bottleneck, and you get a written plan with prices and dates before anything is built.",
-    },
-    {
-      step: "Redesign",
-      phase: "Consulting",
-      text: "We simplify the process before choosing any technology, so we automate the right work, not today's workarounds.",
-    },
-    {
-      step: "Build",
-      phase: "Technology",
-      text: "No report on a shelf. We connect your systems and build the automation and AI that does the work. People approve anything that matters.",
-    },
-    {
-      step: "Run",
-      phase: "Technology",
-      text: "We stay on after launch, report against the measures we agreed, and keep improving it the more your team uses it.",
-    },
-  ],
 
   faqs: [
     {
