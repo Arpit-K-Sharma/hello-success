@@ -6,7 +6,7 @@ import { Icon } from "./ui";
 
 const { focus } = site.discovery;
 const field =
-  "w-full rounded-2xl border border-line bg-white/5 px-5 py-4 text-lg text-white placeholder:text-white/40 outline-none transition focus:border-brand-2 focus:bg-white/10";
+  "w-full rounded-2xl border border-line bg-white/5 px-5 py-4 text-lg text-white placeholder:text-white/55 outline-none transition focus:border-brand-2 focus:bg-white/10";
 const accent = (id: string) => (id === "unsure" ? "var(--color-glow)" : `var(--color-${id})`);
 
 // Board preview: nothing is sent. Wire to email/CRM before launch.
@@ -133,7 +133,7 @@ function Row({ label, value, color, missing }: { label: string; value?: string; 
   return (
     <div className="grid gap-1 py-2.5 sm:grid-cols-[10rem_1fr] sm:gap-4">
       <dt className="text-white/60">{label}</dt>
-      <dd className={`text-lg break-words ${value ? "font-medium" : "text-white/40 italic"}`} style={{ color: value ? color : undefined }}>
+      <dd className={`text-lg break-words ${value ? "font-medium" : "text-white/60 italic"}`} style={{ color: value ? color : undefined }}>
         {value ? <span className="flex gap-2"><Icon name="check" className="text-glow mt-1 size-4 shrink-0" />{value}</span> : missing}
       </dd>
     </div>

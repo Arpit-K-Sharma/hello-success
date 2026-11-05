@@ -1,58 +1,26 @@
 "use client";
 
-import { Children, useEffect, useRef, useState, type ReactNode } from "react";
+import { Children, useRef, useState, type ReactNode } from "react";
 
 /**
- * Phone "stories": full-width cards that auto-swipe every few seconds while on screen.
- * People can swipe (touch) or drag (mouse) themselves; any touch pauses the auto-swipe
- * until it's released. Dots show position. Reduced motion: no auto-swipe.
+ * Phone "stories": full-width cards read at the visitor's own pace (no auto-advance).
+ * Swipe (touch), drag (mouse), tap the left or right third, or use the dots.
+ * A "Swipe · 1 of 6" hint shows there's more.
  */
-export function Stories({ label, ms = 2000, children }: { label: string; ms?: number; children: ReactNode }) {
+export function Stories({ label, children }: { label: string; children: ReactNode }) {
   const slides = Children.toArray(children);
   const n = slides.length;
   const track = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const [held, setHeld] = useState(false);
 
   const go = (k: number) => {
     const t = track.current!;
     t.scrollTo({ left: ((k + n) % n) * t.clientWidth, behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      ([e]) => setVisible(e.isIntersecting && !matchMedia("(prefers-reduced-motion: reduce)").matches),
-      { threshold: 0.4 },
-    );
-    io.observe(track.current!);
-    // Resume once the finger/mouse lifts anywhere. (Not on pointercancel: a touch swipe fires
-    // that as it starts, and resuming then would yank the card away mid-swipe.)
-    const release = () => setHeld(false);
-    addEventListener("pointerup", release);
-    addEventListener("touchend", release);
-    addEventListener("touchcancel", release);
-    return () => {
-      io.disconnect();
-      removeEventListener("pointerup", release);
-      removeEventListener("touchend", release);
-      removeEventListener("touchcancel", release);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!visible || held) return;
-    const t = setTimeout(() => {
-      const el = track.current!;
-      el.scrollTo({ left: ((index + 1) % n) * el.clientWidth, behavior: "smooth" });
-    }, ms);
-    return () => clearTimeout(t);
-  }, [visible, held, index, n, ms]);
-
   // Mouse drag (touch swipes are native scrolling). Snap is off while dragging, then we settle on a card.
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
-    setHeld(true);
     if (e.pointerType !== "mouse" || (e.target as HTMLElement).closest("a, button")) return;
     const t = e.currentTarget;
     drag.current = { x: e.clientX, left: t.scrollLeft, moved: false };
@@ -84,7 +52,6 @@ export function Stories({ label, ms = 2000, children }: { label: string; ms?: nu
         className="flex cursor-grab snap-x snap-mandatory overflow-x-auto overscroll-x-contain select-none [scrollbar-width:none] active:cursor-grabbing"
         onScroll={(e) => setIndex(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
         onPointerDown={startDrag}
-        onTouchStart={() => setHeld(true)}
         onClick={(e) => {
           if (drag.current?.moved || (e.target as HTMLElement).closest("a, button")) return;
           const r = e.currentTarget.getBoundingClientRect();
@@ -99,12 +66,17 @@ export function Stories({ label, ms = 2000, children }: { label: string; ms?: nu
           </div>
         ))}
       </div>
-      <div className="mt-4 flex justify-center gap-2">
-        {slides.map((_, k) => (
-          <button key={k} type="button" onClick={() => go(k)} aria-label={`Show ${k + 1} of ${n}`} aria-current={k === index} className="grid h-6 place-items-center">
-            <span className={`block h-1.5 rounded-full transition-all ${k === index ? "bg-glow w-6" : "w-1.5 bg-white/30"}`} />
-          </button>
-        ))}
+      <div className="mt-4 flex items-center justify-between gap-4">
+        <p className="label text-white/60" aria-live="polite">
+          Swipe · {index + 1} of {n}
+        </p>
+        <div className="flex gap-2">
+          {slides.map((_, k) => (
+            <button key={k} type="button" onClick={() => go(k)} aria-label={`Show ${k + 1} of ${n}`} aria-current={k === index} className="grid h-6 place-items-center">
+              <span className={`block h-1.5 rounded-full transition-all ${k === index ? "bg-glow w-6" : "w-1.5 bg-white/30"}`} />
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

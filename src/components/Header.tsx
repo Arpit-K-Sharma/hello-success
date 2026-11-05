@@ -84,8 +84,7 @@ export function Header() {
             href={site.cta.href}
             className="bg-brand hover:bg-brand-2 group hidden items-center gap-2 rounded-full px-5 py-3 font-medium whitespace-nowrap shadow-[0_0_40px_-8px] shadow-brand transition sm:inline-flex"
           >
-            <span className="xl:hidden">{site.cta.short}</span>
-            <span className="hidden xl:inline">{site.cta.label}</span>
+            {site.cta.label}
             <Icon name="arrow" className="size-4 transition group-hover:translate-x-0.5" />
           </a>
           <button
@@ -111,7 +110,7 @@ export function Header() {
             aria-current={active === item.href ? "location" : undefined}
             className="font-display flex items-center gap-4 border-b border-line py-4 text-2xl aria-[current=location]:text-glow"
           >
-            <span className="label w-6 text-white/45">0{i + 1}</span>
+            <span className="label w-6 text-white/60">0{i + 1}</span>
             {item.label}
             {active === item.href && <span className="bg-glow ml-auto size-2 rounded-full shadow-[0_0_10px_2px_var(--color-glow)]" aria-hidden />}
           </a>

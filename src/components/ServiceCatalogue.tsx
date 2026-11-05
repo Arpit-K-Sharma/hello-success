@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { MathUtils } from "three";
 import { outcomes, services } from "@/content/services";
+import { site } from "@/content/site";
 import { SCRUB_QUERY, useMedia, useScrollProgress } from "./ScrollStory";
 import { Icon } from "./ui";
 import { Stories } from "./phone/Stories";
@@ -141,7 +142,7 @@ export function ServiceCatalogue() {
               <p className="font-display text-2xl font-semibold">{s.change}</p>
             </div>
             <a href="#contact" onClick={() => dialog.current?.close()} className="bg-brand hover:bg-brand-2 block rounded-full py-4 text-center text-lg font-medium transition">
-              Talk to us about {s.name}
+              {site.cta.label}
             </a>
           </div>
         </div>

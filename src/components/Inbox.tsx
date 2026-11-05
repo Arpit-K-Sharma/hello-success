@@ -18,7 +18,7 @@ export function Inbox() {
           <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-ink/60" strokeWidth="1.6" aria-hidden><circle cx="7" cy="7" r="4.5" /><path d="m10.5 10.5 3.5 3.5" /></svg>
           Search
         </span>
-        <span className="ml-auto grid size-7 place-items-center rounded-full bg-white/25 text-xs font-semibold sm:ml-0">JS</span>
+        <span className="ml-auto grid size-7 place-items-center rounded-full bg-black/25 text-xs font-semibold sm:ml-0">JS</span>
       </div>
       {/* Ribbon */}
       <div className="flex items-center gap-4 border-b border-black/10 bg-[#f5f5f5] px-3 py-2 text-sm text-ink/75">
@@ -32,7 +32,7 @@ export function Inbox() {
       <div className="grid sm:grid-cols-[10.5rem_1fr]">
         {/* Folder pane */}
         <ul className="hidden border-r border-black/10 bg-[#fafafa] py-2 text-[0.95rem] sm:block">
-          <li className="px-4 pt-1 pb-2 text-xs font-semibold text-ink/50">Favourites</li>
+          <li className="px-4 pt-1 pb-2 text-xs font-semibold text-ink/65">Favourites</li>
           <li className="flex items-center justify-between border-l-2 border-[#0f6cbd] bg-[#e6eef8] px-4 py-1.5 font-semibold">
             Inbox <span className="text-[#0f6cbd]">{inbox.unreadBase + N}</span>
           </li>
@@ -44,8 +44,8 @@ export function Inbox() {
         <div className="min-w-0">
           <div className="flex items-end gap-5 border-b border-black/10 px-4 pt-2 text-[0.95rem]">
             <span className="border-b-2 border-[#0f6cbd] pb-1.5 font-semibold">Focused</span>
-            <span className="pb-1.5 text-ink/55">Other</span>
-            <span className="ml-auto pb-1.5 text-ink/55 sm:hidden"><span>{inbox.unreadBase + N}</span> unread</span>
+            <span className="pb-1.5 text-ink/65">Other</span>
+            <span className="ml-auto pb-1.5 text-ink/65 sm:hidden"><span>{inbox.unreadBase + N}</span> unread</span>
           </div>
           <ul>
             {inbox.emails.map((m, i) => {

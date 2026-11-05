@@ -16,7 +16,7 @@ Each phase ends with: `npx eslint src`, a look at 390px and 768px, the same with
 - The Discover / Redesign / Build / Run detail lives in Process, and the step text shows on phones too.
 - The desktop hero keeps its scroll animation and slides (decided), so the two heroes stay separate components.
 
-## M2: Swipe cards at the reader's pace
+## M2: Swipe cards at the reader's pace ✅ done
 
 **Now:** outcome and service cards (`Stories`) auto-advance **every 2 seconds** while on screen. That's too fast to read a card.
 
@@ -28,7 +28,7 @@ Each phase ends with: `npx eslint src`, a look at 390px and 768px, the same with
 
 **Decided:** keep it pinned. It only moves when the reader scrolls, so it isn't auto-moving content.
 
-## M4: Reduced motion check
+## M4: Reduced motion check ✅ done
 
 Already designed in (ScrollStory doesn't pin, Stories don't move, 3D is still). Verify at 390px with reduced motion on after M1 to M3.
 
@@ -38,11 +38,11 @@ Already designed in (ScrollStory doesn't pin, Stories don't move, 3D is still). 
 - The two heroes each have an `h1`; the hidden one is `display: none`, so screen readers announce only one. Kept, since desktop and phone heroes now differ on purpose.
 - Orchestration, outcomes and services keep two designs; their text comes from one content source.
 
-## M6: Contrast (WCAG AA, 4.5:1)
+## M6: Contrast (WCAG AA, 4.5:1) ✅ done
 
-Measure every text colour used on each background (e.g. `text-white/55` sources, `text-white/60` labels, `text-ink/60` on paper) and raise any that fall below 4.5:1. Applies to desktop too.
+Measured every visible text element against its real background, at desktop and 390px. Raised the few that failed: mock inbox avatar colours and grey labels, the contact form's "missing" hints and placeholders, the mobile menu numbers. Everything now passes 4.5:1 (3:1 for large text).
 
-## M7: Alt text
+## M7: Alt text ✅ done
 
 Checked: every meaningful image (logos) has alt text, and decorative canvases are `aria-hidden`. Nothing to do.
 
@@ -52,3 +52,10 @@ Checked: every meaningful image (logos) has alt text, and decorative canvases ar
 
 - **Cutting to 8 sections / folding the 6 services into Grow, Serve, Run.** This changes desktop and phone structure, so it gets its own plan if we go ahead.
 - **Booking form** (sending, confirmation, consent, privacy page) and **launch** tasks.
+
+## Also done from the PDF
+
+- One button label everywhere: "Book a discovery call" (the short "Book a call" and "Talk to us about…" are gone).
+- Hero has one button (PDF: "Hero, with the headline and one button").
+- Desktop hero slides say Build, not Automate, matching Process.
+- Share image for LinkedIn and messaging apps (`app/opengraph-image.tsx`) plus Open Graph title and description.

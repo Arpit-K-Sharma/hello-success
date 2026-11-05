@@ -13,7 +13,7 @@ export const site = {
     { label: "Process", href: "#process", sections: ["process"] },
     { label: "Why us", href: "#why-us", sections: ["why-us"] },
   ],
-  cta: { label: "Book a discovery call", short: "Book a call", href: "#contact" },
+  cta: { label: "Book a discovery call", href: "#contact" },
 
   // Real phone. Email and LinkedIn are placeholders until the CEO sends them.
   contact: {
@@ -29,7 +29,7 @@ export const site = {
     title: ["Consulting that", "delivers.", "Not just a report."],
     intro:
       "We find what's holding your business back and fix the process. Then, instead of handing you a report, we automate it with technology that gets better the more you use it.",
-    // What Hello Success does, in order. Scroll beats on desktop; a short list on smaller screens.
+    // Desktop hero scroll slides; same words as the Process steps (Discover, Redesign, Build).
     beats: [
       {
         kicker: "01 · Where we start",
@@ -43,7 +43,7 @@ export const site = {
       },
       {
         kicker: "03 · Where we're different",
-        heading: "Automate",
+        heading: "Build",
         body: "No report on a shelf. We build the automation that does the work, and it keeps getting better the more your team uses it.",
       },
     ],
@@ -99,10 +99,10 @@ export const site = {
       emails: [
         { from: "Website Enquiry", time: "9:58", subject: "Demo request from Coastal Wholesale", preview: "Not assigned to anyone yet.", tag: "Unassigned", urgent: false, color: "#1868db" },
         { from: "Megan Ross", time: "9:41", subject: "Board report due Thursday", preview: "Can someone pull numbers from all five systems?", tag: "Due soon", urgent: false, color: "#7c3aed" },
-        { from: "Operations", time: "9:12", subject: "Approval needed: PO-2291", preview: "Still waiting on sign-off from Friday.", tag: "Waiting 4 days", urgent: true, color: "#0891b2" },
-        { from: "Sales Team", time: "Yesterday", subject: "Pipeline_v7_FINAL_final.xlsx", preview: "Which version is the latest one?", tag: "4 versions", urgent: false, color: "#059669" },
+        { from: "Operations", time: "9:12", subject: "Approval needed: PO-2291", preview: "Still waiting on sign-off from Friday.", tag: "Waiting 4 days", urgent: true, color: "#0e7490" },
+        { from: "Sales Team", time: "Yesterday", subject: "Pipeline_v7_FINAL_final.xlsx", preview: "Which version is the latest one?", tag: "4 versions", urgent: false, color: "#047857" },
         { from: "Mark Chen", time: "Yesterday", subject: "RE: RE: RE: Order #8812 not delivered", preview: "This is the third time I've asked.", tag: "3rd follow-up", urgent: true, color: "#dc2626" },
-        { from: "Accounts", time: "Mon", subject: "FW: 38 invoices to key into Xero", preview: "Please enter these by end of week.", tag: "Manual entry", urgent: false, color: "#d97706" },
+        { from: "Accounts", time: "Mon", subject: "FW: 38 invoices to key into Xero", preview: "Please enter these by end of week.", tag: "Manual entry", urgent: false, color: "#b45309" },
         { from: "Website Enquiry", time: "Mon", subject: "Quote request: 40 units", preview: "Customer needs pricing today.", tag: "No reply 2 days", urgent: true, color: "#1868db" },
       ],
     },

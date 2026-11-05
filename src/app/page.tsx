@@ -76,9 +76,8 @@ function Hero() {
                 <span className="text-white/70">{hero.title[2]}</span>
               </h1>
               <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
-              <div className="flex flex-wrap gap-3">
+              <div>
                 <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
-                <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
               </div>
             </div>
             {hero.beats.map((b, i) => (
@@ -117,9 +116,8 @@ function PhoneHero() {
             <span className="text-white/70">{hero.title[2]}</span>
           </h1>
           <p className="text-white/80">{hero.intro}</p>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href={site.cta.href}>{site.cta.short}</ButtonLink>
-            <span className="max-[380px]:hidden"><ButtonLink href="#services" variant="ghost">Explore services</ButtonLink></span>
+          <div>
+            <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
           </div>
         </div>
       </div>
