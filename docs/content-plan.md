@@ -51,8 +51,7 @@ Decided: the third person About copy (names Mina) is the Why us intro, led by "H
 
 - `site.process` is now 4 steps with fuller copy (absorbs the hero's Discover / Redesign / Automate text), and the step text shows on every screen size, not only desktop.
 - Decided: **Process only**. The orchestration scene keeps its 01 Connect / 02 Orchestrate / 03 Perform beats.
-- Decided: the **desktop hero drops its scroll slides**. It is one unpinned screen with the 3D core already formed and turning.
-- `site.hero.beats` is still used by the phone hero; it goes in the mobile design phase.
+- Desktop hero: **kept as before** (pinned scroll with the Discover / Redesign / Automate slides and the 3D converging). The PDF only asks for a static hero on mobile ("keep it if you like" on desktop).
 
 ---
 
@@ -67,7 +66,7 @@ Decided: the third person About copy (names Mina) is the Why us intro, led by "H
 2. **Why us vs About:** the third person About copy is the Why us intro.
 3. **Timelines:** kept as they are until the CEO confirms they're real commitments (his doc: keep only if we'll commit to them).
 4. **Phase 5:** done now, Process only.
-5. **Desktop hero:** scroll slides dropped.
+5. **Desktop hero:** keeps its scroll animation and slides; only mobile goes static.
 
 ## Still waiting on the CEO
 

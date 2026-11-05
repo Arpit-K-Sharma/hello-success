@@ -63,75 +63,70 @@ function Split({ id, desk, phone }: { id: string; desk: React.ReactNode; phone: 
 function Hero() {
   const { hero } = site;
   return (
-    // One screen, no pinning: the message first, the 3D core already formed and turning beside it.
-    // The Discover / Redesign / Build / Run steps are explained in Process.
-    <section className="relative flex min-h-svh overflow-clip bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
-      <div className="shell relative z-10 flex items-center pt-24 pb-10">
-        <div className="max-w-2xl space-y-8">
-          <Eyebrow>{hero.eyebrow}</Eyebrow>
-          <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
-            {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
-            <br />
-            <span className="text-white/70">{hero.title[2]}</span>
-          </h1>
-          <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
-            <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute inset-y-0 right-0 left-[35%]">
-        <HeroVisual desk />
-      </div>
-    </section>
-  );
-}
-
-/** Phone hero: 3D on top, copy below swaps from "what we are" through Discover, Redesign, Automate. */
-function PhoneHero() {
-  const { hero } = site;
-  return (
-    <ScrollStory mode="phone" screens={3.5} className="bg-[radial-gradient(circle_at_50%_25%,#0f2a52_0,var(--color-void)_60%)]">
-      <div className="relative flex h-full flex-col justify-end pt-18">
-        {/* The 3D spins behind the copy; a fade keeps the text readable. */}
-        <div className="absolute inset-x-0 top-0 h-[64%] opacity-70 [mask-image:linear-gradient(#000_65%,transparent)]">
-          <HeroVisual desk={false} />
-        </div>
-        <div className="from-void via-void/80 pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-linear-to-t via-55% to-transparent" aria-hidden />
-        <div className="shell relative flex flex-col gap-5 pb-10">
-          <div data-beats className="mx-auto w-full max-w-xl space-y-8">
-            <div data-beat="0" className="space-y-4">
+    <ScrollStory screens={4} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
+      <div className="relative flex h-full flex-col">
+        {/* Pinned: clear the sticky header; data-fit shrinks the copy on short screens. */}
+        <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 story:pt-24 story:pb-10">
+          <div data-beats data-fit className="max-w-2xl origin-left space-y-14 story:items-center story:space-y-0">
+            <div data-beat="0" className="space-y-8">
               <Eyebrow>{hero.eyebrow}</Eyebrow>
-              <h1 className="font-display text-4xl leading-[0.98] font-semibold tracking-tight sm:text-5xl">
-                {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>{" "}
+              <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
+                {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
+                <br />
                 <span className="text-white/70">{hero.title[2]}</span>
               </h1>
-              <p className="text-white/80">{hero.intro}</p>
+              <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
               <div className="flex flex-wrap gap-3">
-                <ButtonLink href={site.cta.href}>{site.cta.short}</ButtonLink>
-                <span className="max-[380px]:hidden"><ButtonLink href="#services" variant="ghost">Explore services</ButtonLink></span>
+                <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
+                <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
               </div>
             </div>
             {hero.beats.map((b, i) => (
-              <div key={b.kicker} data-beat={i + 1} className="space-y-3 self-end">
+              <div key={b.kicker} data-beat={i + 1} className="hidden space-y-6 story:block">
                 <Eyebrow>{b.kicker}</Eyebrow>
-                <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">{b.heading}</h2>
-                <p className="text-lg text-white/80">{b.body}</p>
+                <h2 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight sm:text-6xl">{b.heading}</h2>
+                <p className="max-w-lg text-xl text-white/80">{b.body}</p>
               </div>
             ))}
           </div>
-          <div className="mx-auto flex w-full max-w-xl gap-2" aria-hidden>
-            {[0, ...hero.beats.map((_, i) => i + 1)].map((i) => (
-              <span key={i} data-dot={i} data-active={i === 0 ? "" : undefined} className="h-1.5 w-1.5 rounded-full bg-white/25 transition-all" />
-            ))}
-          </div>
+        </div>
+
+        <div className="relative h-[40svh] story:absolute story:inset-y-0 story:right-0 story:left-[35%] story:h-auto">
+          <HeroVisual desk />
         </div>
       </div>
     </ScrollStory>
   );
 }
+
+/** Phone hero: one static screen. The 3D sits finished and spinning behind the copy (still with reduced motion). */
+function PhoneHero() {
+  const { hero } = site;
+  return (
+    <section className="relative flex min-h-svh flex-col justify-end overflow-clip bg-[radial-gradient(circle_at_50%_25%,#0f2a52_0,var(--color-void)_60%)] pt-18">
+      {/* The 3D spins behind the copy; a fade keeps the text readable. */}
+      <div className="absolute inset-x-0 top-0 h-[64%] opacity-70 [mask-image:linear-gradient(#000_65%,transparent)]">
+        <HeroVisual desk={false} />
+      </div>
+      <div className="from-void via-void/80 pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-linear-to-t via-55% to-transparent" aria-hidden />
+      <div className="shell relative pb-10">
+        <div className="mx-auto w-full max-w-xl space-y-4">
+          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <h1 className="font-display text-4xl leading-[0.98] font-semibold tracking-tight sm:text-5xl">
+            {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>{" "}
+            <span className="text-white/70">{hero.title[2]}</span>
+          </h1>
+          <p className="text-white/80">{hero.intro}</p>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href={site.cta.href}>{site.cta.short}</ButtonLink>
+            <span className="max-[380px]:hidden"><ButtonLink href="#services" variant="ghost">Explore services</ButtonLink></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function Problem() {
   const p = site.problem;
