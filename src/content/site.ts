@@ -28,24 +28,6 @@ export const site = {
     title: ["Consulting that", "delivers.", "Not just a report."],
     intro:
       "We find what's holding your business back and fix the process. Then, instead of handing you a report, we automate it with technology that gets better the more you use it.",
-    // Desktop hero scroll slides; same words as the Process steps (Discover, Redesign, Build).
-    beats: [
-      {
-        kicker: "01 · Where we start",
-        heading: "Discover",
-        body: "Goals, people, processes and systems. We find the real bottleneck.",
-      },
-      {
-        kicker: "02 · Before any software",
-        heading: "Redesign",
-        body: "We simplify the process before choosing any technology.",
-      },
-      {
-        kicker: "03 · Where we're different",
-        heading: "Build",
-        body: "No report on a shelf. We build the automation that does the work, and it keeps getting better the more your team uses it.",
-      },
-    ],
     // Set to a frame folder in /public/frames to replace the 3D scene with an
     // image-sequence "video". See docs/scroll-animation-guide.md.
     frames: null as null | { dir: string; count: number; ext: "webp" | "jpg" },

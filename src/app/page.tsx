@@ -62,12 +62,14 @@ function Split({ id, desk, phone }: { id: string; desk: React.ReactNode; phone: 
 function Hero() {
   const { hero } = site;
   return (
-    <ScrollStory screens={4} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
+    // Pinned while the 3D tools pull together into the core. The copy stays put; the process
+    // line links down to the "Our process" scene, which tells the steps in full.
+    <ScrollStory screens={2.5} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
       <div className="relative flex h-full flex-col">
         {/* Pinned: clear the sticky header; data-fit shrinks the copy on short screens. */}
         <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 story:pt-24 story:pb-10">
-          <div data-beats data-fit className="max-w-2xl origin-left space-y-14 story:items-center story:space-y-0">
-            <div data-beat="0" className="space-y-8">
+          <div data-fit className="max-w-2xl origin-left">
+            <div className="space-y-8">
               <Eyebrow>{hero.eyebrow}</Eyebrow>
               <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
                 {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
@@ -75,17 +77,18 @@ function Hero() {
                 <span className="text-white/70">{hero.title[2]}</span>
               </h1>
               <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
+              <a href="#process" className="font-display group flex flex-wrap items-center gap-x-3 gap-y-1 text-xl font-semibold">
+                {site.orchestration.steps.map((s, i) => (
+                  <span key={s.step} className="flex items-center gap-3">
+                    {i > 0 && <Icon name="arrow" className="text-glow size-4" />}
+                    <span className="transition group-hover:text-glow">{s.step}</span>
+                  </span>
+                ))}
+              </a>
               <div>
                 <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
               </div>
             </div>
-            {hero.beats.map((b, i) => (
-              <div key={b.kicker} data-beat={i + 1} className="hidden space-y-6 story:block">
-                <Eyebrow>{b.kicker}</Eyebrow>
-                <h2 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight sm:text-6xl">{b.heading}</h2>
-                <p className="max-w-lg text-xl text-white/80">{b.body}</p>
-              </div>
-            ))}
           </div>
         </div>
 
