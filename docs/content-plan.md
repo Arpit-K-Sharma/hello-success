@@ -37,7 +37,7 @@ Decided: the third person About copy (names Mina) is the Why us intro, led by "H
 | 3.1 | New `site.whyUs`: heading, intro, 3 cards (One team · You see the plan · Measured against your numbers) and the founding client offer with its button. It takes the old Results slot, and the nav item "Results" becomes "Why us" | `site.ts`, new `WhyUs()` in `page.tsx`, reusing `Icon` / `ButtonLink` |
 | 3.2 | Add About copy (Mina Azar, 20+ years) and fix the IT Together text to "20+ years of sales, operations and CX leadership, alongside IT Together's engineers" | `site.itTogether`, the `PoweredBy` band |
 
-## Phase 4: Contact details and consistency
+## Phase 4: Contact details and consistency ✅ done
 
 | # | Change | Where |
 |---|---|---|
@@ -47,10 +47,12 @@ Decided: the third person About copy (names Mina) is the Why us intro, led by "H
 | 4.4 | "We reply within a day" becomes "within one business day" | `site.discovery.next` |
 | 4.5 | FAQ cost answer uses the CEO's wording | `site.faqs` |
 
-## Phase 5: One step model (Discover → Redesign → Build → Run)
+## Phase 5: One step model (Discover → Redesign → Build → Run) ✅ done
 
-- Rewrite `site.process` from 6 steps to 4. Each step gets fuller copy that absorbs the hero's Discover / Redesign / Automate text.
-- This overlaps with the hero and section-trim design work, so do it last or together with the design phase.
+- `site.process` is now 4 steps with fuller copy (absorbs the hero's Discover / Redesign / Automate text), and the step text shows on every screen size, not only desktop.
+- Decided: **Process only**. The orchestration scene keeps its 01 Connect / 02 Orchestrate / 03 Perform beats.
+- Decided: the **desktop hero drops its scroll slides**. It is one unpinned screen with the 3D core already formed and turning.
+- `site.hero.beats` is still used by the phone hero; it goes in the mobile design phase.
 
 ---
 
@@ -59,10 +61,17 @@ Decided: the third person About copy (names Mina) is the Why us intro, led by "H
 - The site has no prices and no "fee at risk" anywhere.
 - "Within a day" is in the discovery steps, not the FAQ.
 
-## Decisions before starting
+## Decisions made
 
-1. **Service popup examples (1.2):** remove the block entirely, or keep a "Typical result" line with no client name? Recommended: remove it.
-2. **Why us vs About:** the CEO's Why us intro ("I spent 20+ years…", first person) and his About copy ("Mina brings 20+ years…", third person) say the same thing. Use both, or merge them into one?
-3. **Timelines:** the FAQ's "4 to 6 weeks" and the engagement lengths in each service popup (2 weeks, 6 to 10 weeks and so on). Keep them until he confirms, or remove them now?
-4. **Phase 5:** do it now as content only, or hold it for the design phase?
-5. **Desktop hero:** keep the Discover / Redesign / Automate scroll slides, or show the first page only?
+1. **Service popup examples:** replaced with a non-numeric "What changes" line.
+2. **Why us vs About:** the third person About copy is the Why us intro.
+3. **Timelines:** kept as they are until the CEO confirms they're real commitments (his doc: keep only if we'll commit to them).
+4. **Phase 5:** done now, Process only.
+5. **Desktop hero:** scroll slides dropped.
+
+## Still waiting on the CEO
+
+- Real email inbox and LinkedIn profile link
+- CRM partner name (or remove the chip)
+- Whether the Discovery / Pilot timelines are commitments
+- "Book" vs "Request" a discovery call

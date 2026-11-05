@@ -2,7 +2,7 @@
 // the sourced figures and real details go in (docs/content-plan.md).
 
 export const site = {
-  name: "Hello Success × IT Together",
+  name: "Hello Success, powered by IT Together",
   description:
     "AI automation, connected systems and smarter processes that help businesses grow revenue, serve customers better and run leaner.",
   // In page order. `sections` = ids that light up this item while on screen.
@@ -15,10 +15,11 @@ export const site = {
   ],
   cta: { label: "Book a discovery call", short: "Book a call", href: "#contact" },
 
-  // Fictional contact details (0491 570 xxx is reserved for fiction in AU).
+  // Real phone. Email and LinkedIn are placeholders until the CEO sends them.
   contact: {
     email: "hello@hellosuccess.example",
-    phone: "+61 491 570 156",
+    phone: "0478 062 165",
+    phoneHref: "tel:+61478062165",
     linkedin: "https://www.linkedin.com/",
     location: "Sydney, Australia",
   },
@@ -115,13 +116,28 @@ export const site = {
     closer: ["We fix the process,", "connect your systems", "and automate the rest, with AI where it pays off."],
   },
 
+  // The one step model used across the site (CEO feedback): Discover, Redesign, Build, Run.
   process: [
-    { step: "Discover", phase: "Consulting", text: "Goals, people, processes and systems. We find the real bottleneck." },
-    { step: "Redesign", phase: "Consulting", text: "We simplify the process before choosing any technology." },
-    { step: "Connect", phase: "Technology", text: "Platforms and data joined into one flow." },
-    { step: "Automate", phase: "Technology", text: "Automation and AI where they create clear value." },
-    { step: "Measure", phase: "Technology", text: "Results tracked against the business case you agreed to." },
-    { step: "Advance", phase: "Technology", text: "After launch we stay on, keep improving and line up your next win." },
+    {
+      step: "Discover",
+      phase: "Consulting",
+      text: "Goals, people, processes and systems. We find the real bottleneck, and you get a written plan with prices and dates before anything is built.",
+    },
+    {
+      step: "Redesign",
+      phase: "Consulting",
+      text: "We simplify the process before choosing any technology, so we automate the right work, not today's workarounds.",
+    },
+    {
+      step: "Build",
+      phase: "Technology",
+      text: "No report on a shelf. We connect your systems and build the automation and AI that does the work. People approve anything that matters.",
+    },
+    {
+      step: "Run",
+      phase: "Technology",
+      text: "We stay on after launch, report against the measures we agreed, and keep improving it the more your team uses it.",
+    },
   ],
 
   faqs: [
@@ -143,7 +159,7 @@ export const site = {
     },
     {
       q: "What does it cost?",
-      a: "Every engagement starts with a fixed-price discovery. From there you get a clear plan, timeline and budget before any build begins.",
+      a: "Every engagement starts with a fixed price Discovery, quoted after a free 30 minute call. Discovery ends with a written plan, timeline and budget before any build begins.",
     },
   ],
 
@@ -191,7 +207,7 @@ export const site = {
     promises: ["30 minutes", "Free, no obligation", "Reply within one business day"],
     next: [
       { title: "Send a 2 minute brief", text: "What you want to improve and what's in the way." },
-      { title: "We reply within a day", text: "With a time that suits you and who you'll meet." },
+      { title: "We reply within one business day", text: "With a time that suits you and who you'll meet." },
       { title: "30 minute call", text: "We bring a first idea for your quickest win." },
     ],
     focus: [

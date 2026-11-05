@@ -63,39 +63,29 @@ function Split({ id, desk, phone }: { id: string; desk: React.ReactNode; phone: 
 function Hero() {
   const { hero } = site;
   return (
-    <ScrollStory screens={4} className="bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
-      <div className="relative flex h-full flex-col">
-        {/* Pinned: clear the sticky header; data-fit shrinks the copy on short screens. */}
-        <div className="shell relative z-10 flex flex-1 items-center pt-20 pb-10 story:pt-24 story:pb-10">
-          <div data-beats data-fit className="max-w-2xl origin-left space-y-14 story:items-center story:space-y-0">
-            <div data-beat="0" className="space-y-8">
-              <Eyebrow>{hero.eyebrow}</Eyebrow>
-              <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
-                {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
-                <br />
-                <span className="text-white/70">{hero.title[2]}</span>
-              </h1>
-              <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
-              <div className="flex flex-wrap gap-3">
-                <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
-                <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
-              </div>
-            </div>
-            {hero.beats.map((b, i) => (
-              <div key={b.kicker} data-beat={i + 1} className="hidden space-y-6 story:block">
-                <Eyebrow>{b.kicker}</Eyebrow>
-                <h2 className="font-display text-4xl leading-[1.02] font-semibold tracking-tight sm:text-6xl">{b.heading}</h2>
-                <p className="max-w-lg text-xl text-white/80">{b.body}</p>
-              </div>
-            ))}
+    // One screen, no pinning: the message first, the 3D core already formed and turning beside it.
+    // The Discover / Redesign / Build / Run steps are explained in Process.
+    <section className="relative flex min-h-svh overflow-clip bg-[radial-gradient(circle_at_70%_45%,#0f2a52_0,var(--color-void)_55%)]">
+      <div className="shell relative z-10 flex items-center pt-24 pb-10">
+        <div className="max-w-2xl space-y-8">
+          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <h1 className="font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
+            {hero.title[0]} <span className="text-brand-2">{hero.title[1]}</span>
+            <br />
+            <span className="text-white/70">{hero.title[2]}</span>
+          </h1>
+          <p className="max-w-xl text-xl text-white/80">{hero.intro}</p>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
+            <ButtonLink href="#services" variant="ghost">Explore services</ButtonLink>
           </div>
         </div>
-
-        <div className="relative h-[40svh] story:absolute story:inset-y-0 story:right-0 story:left-[35%] story:h-auto">
-          <HeroVisual desk />
-        </div>
       </div>
-    </ScrollStory>
+
+      <div className="absolute inset-y-0 right-0 left-[35%]">
+        <HeroVisual desk />
+      </div>
+    </section>
   );
 }
 
@@ -314,7 +304,7 @@ function Process() {
           <h2 className={H2}>Process first. Technology second.</h2>
           <p className="text-xl text-white/75">One team and one thread of accountability, from the first conversation to the next improvement.</p>
         </div>
-        <ol className="relative grid gap-5 lg:grid-cols-6 lg:gap-6">
+        <ol className="relative grid gap-5 lg:grid-cols-4 lg:gap-8">
           {/* Mobile: vertical line drawn by CSS. Desktop: thick bar filled by scroll, with a glowing head. */}
           <span className="absolute top-0 bottom-0 left-6 w-px bg-white/10 lg:hidden" aria-hidden />
           <span className="draw-line from-grow via-serve to-run absolute top-0 bottom-0 left-6 w-0.5 origin-top bg-linear-to-b lg:hidden" aria-hidden />
@@ -329,7 +319,7 @@ function Process() {
               </span>
               <p className={`label mb-1 ${p.phase === "Consulting" ? "text-glow" : "text-brand-2"}`}>{p.phase}</p>
               <h3 className="font-display text-2xl font-semibold">{p.step}</h3>
-              <p className="mt-2 hidden text-lg text-white/75 story:block">{p.text}</p>
+              <p className="mt-2 text-lg text-white/75">{p.text}</p>
             </li>
           ))}
         </ol>
@@ -460,7 +450,7 @@ function Contact() {
           <div className="space-y-1 border-t border-line pt-6 text-lg text-white/85">
             <p className="label mb-2 text-white/55">Prefer to talk now?</p>
             {[
-              { icon: "phone", href: `tel:${c.phone.replace(/\s/g, "")}`, label: c.phone },
+              { icon: "phone", href: c.phoneHref, label: c.phone },
               { icon: "mail", href: `mailto:${c.email}`, label: c.email },
             ].map((l) => (
               <a key={l.icon} href={l.href} className="flex items-center gap-3 py-1 hover:text-white">
@@ -497,7 +487,7 @@ function Footer() {
           <a href="#contact" className="hover:text-white">Contact</a>
         </nav>
       </div>
-      <p className="shell mt-10 text-white/50">© 2026 Hello Success × IT Together</p>
+      <p className="shell mt-10 text-white/50">© 2026 {site.name}</p>
     </footer>
   );
 }
