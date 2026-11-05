@@ -10,8 +10,12 @@ export type Outcome = {
   /** Steps light up one by one as the visitor scrolls the chapter. */
   flow: { label: string; detail: string }[];
   layers: { process: string; platform: string; ai: string };
-  result: { value: string; label: string };
+  /** Industry research, not a Hello Success result: always shown with its source. */
+  result: { value: string; label: string; source: string };
 };
+
+/** Shown above every outcome stat so it reads as evidence, not our result. */
+export const researchLabel = "What the research says";
 
 export const outcomes: Outcome[] = [
   {
@@ -33,7 +37,11 @@ export const outcomes: Outcome[] = [
       platform: "CRM connected to web, email, quoting and finance.",
       ai: "Lead scoring, next-best action and forecast insight.",
     },
-    result: { value: "3×", label: "faster lead response" },
+    result: {
+      value: "7×",
+      label: "as likely to become a real sales conversation when a lead is contacted within an hour",
+      source: "Harvard Business Review, 2011",
+    },
   },
   {
     id: "serve",
@@ -54,7 +62,11 @@ export const outcomes: Outcome[] = [
       platform: "CRM, help desk, portals and billing sharing one record.",
       ai: "AI assistants, sentiment, smart routing and proactive outreach.",
     },
-    result: { value: "40%", label: "of requests resolved without waiting" },
+    result: {
+      value: "80%",
+      label: "of common customer service issues will be resolved by AI agents by 2029, Gartner forecasts",
+      source: "Gartner forecast, March 2025",
+    },
   },
   {
     id: "run",
@@ -75,7 +87,11 @@ export const outcomes: Outcome[] = [
       platform: "ERP, documents, payments and work management connected.",
       ai: "Document AI, RPA, AI agents and exception detection.",
     },
-    result: { value: "20 hrs", label: "saved per person, per month" },
+    result: {
+      value: "9 hrs",
+      label: "a week: the average time AI saves an Australian worker",
+      source: "RMIT Online and Deloitte Access Economics, 2026",
+    },
   },
 ];
 

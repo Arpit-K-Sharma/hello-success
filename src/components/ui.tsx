@@ -24,7 +24,8 @@ export function Eyebrow({ children, className = "" }: { children: React.ReactNod
   return <p className={`label text-glow ${className}`}>{children}</p>;
 }
 
-const paths: Record<Service["icon"] | "arrow" | "check" | "phone" | "mail", React.ReactNode> = {
+const paths: Record<Service["icon"] | "arrow" | "check" | "phone" | "mail" | "chart", React.ReactNode> = {
+  chart: <path d="M3 20h18M7 16v-5M12 16V7M17 16v-8" />,
   agent: <><rect x="5" y="8" width="14" height="11" rx="3" /><path d="M12 4v4M9 13h.01M15 13h.01M2 13h3M19 13h3" /></>,
   crm: <><circle cx="9" cy="8" r="3" /><path d="M3 20a6 6 0 0 1 12 0M16 4a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 6" /></>,
   flow: <><rect x="3" y="3" width="6" height="6" rx="1.5" /><rect x="15" y="15" width="6" height="6" rx="1.5" /><path d="M9 6h5a3 3 0 0 1 3 3v6" /></>,

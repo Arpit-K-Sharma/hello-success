@@ -13,6 +13,7 @@ export function Inbox() {
           {[0, 6, 12].flatMap((x) => [0, 6, 12].map((y) => <rect key={`${x}${y}`} x={x} y={y} width="3.5" height="3.5" rx="0.6" />))}
         </svg>
         <span className="font-semibold">Mail</span>
+        <span className="rounded-sm bg-white px-1.5 text-xs font-semibold tracking-wide text-[#0f6cbd] uppercase">{inbox.tag}</span>
         <span className="mx-auto hidden w-[45%] items-center gap-2 rounded bg-white/90 px-3 py-1 text-sm text-ink/60 sm:flex">
           <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-ink/60" strokeWidth="1.6" aria-hidden><circle cx="7" cy="7" r="4.5" /><path d="m10.5 10.5 3.5 3.5" /></svg>
           Search

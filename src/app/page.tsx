@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { site } from "@/content/site";
-import { outcomes, type Outcome } from "@/content/services";
+import { outcomes, researchLabel, type Outcome } from "@/content/services";
 import { ContactForm } from "@/components/ContactForm";
 import { Header, MobileCta } from "@/components/Header";
 import { HeroVisual } from "@/components/HeroVisual";
@@ -39,6 +39,7 @@ export default function Home() {
         </div>
         <Services />
         <Process />
+        <WhyUs />
         <PoweredBy />
         <Faq />
         <Contact />
@@ -155,12 +156,13 @@ function Problem() {
           </div>
           <dl className="divide-line-dark border-line-dark divide-y border-y">
             {p.costs.map((c) => (
-              <div key={c.stat} className="reveal grid grid-cols-[7.5rem_1fr] items-center gap-6 py-5">
+              <div key={c.stat} className="reveal grid grid-cols-[8.5rem_1fr] items-center gap-6 py-5">
                 <dt className="font-display text-5xl font-semibold text-red-600">{c.stat}</dt>
                 <dd className="text-ink/80 text-lg">{c.text}</dd>
               </div>
             ))}
           </dl>
+          <p className="text-ink/60 -mt-6 text-base">{p.sources}</p>
         </div>
         <Inbox />
       </div>
@@ -188,10 +190,14 @@ function OutcomeCard({ outcome: o, index }: { outcome: Outcome; index: number })
           </li>
         ))}
       </ol>
-      <p className="mt-auto flex items-baseline gap-3 border-t border-line pt-4">
-        <span className="font-display text-4xl font-semibold text-(--accent)">{o.result.value}</span>
-        <span className="text-white/80">{o.result.label}</span>
-      </p>
+      <div className="mt-auto border-t border-line pt-4">
+        <p className="label text-white/60">{researchLabel}</p>
+        <p className="mt-1 flex items-baseline gap-3">
+          <span className="font-display text-4xl font-semibold text-(--accent)">{o.result.value}</span>
+          <span className="text-white/80">{o.result.label}</span>
+        </p>
+        <p className="mt-2 text-base text-white/55">{o.result.source}</p>
+      </div>
       <a href={`#start-${o.id}`} className="font-display inline-flex items-center gap-2 font-semibold text-(--accent)">
         Start with {o.verb} <Icon name="arrow" className="size-4" />
       </a>
@@ -233,7 +239,7 @@ function OutcomeChapter({ outcome: o, index }: { outcome: Outcome; index: number
             <p className="label text-(--accent)">0{index + 1} · {o.verb}</p>
             <h2 className="font-display text-3xl leading-[1.05] font-semibold tracking-tight sm:text-4xl xl:text-5xl">{o.title}</h2>
             <p className="text-xl text-white/80">{o.promise}</p>
-            <p className="hidden border-l-2 border-(--accent) pl-5 text-lg text-white/70 italic story:block">“{o.problem}”</p>
+            <p className="hidden border-l-2 border-(--accent) pl-5 text-lg text-white/70 story:block">{o.problem}</p>
             <dl className="hidden divide-y divide-white/10 border-y border-line story:block">
               {layers.map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 py-3 text-lg">
@@ -269,9 +275,13 @@ function OutcomeChapter({ outcome: o, index }: { outcome: Outcome; index: number
                 </li>
               ))}
             </ol>
-            <div data-scrub-step className="mt-4 flex items-baseline gap-4 rounded-2xl bg-white/5 px-5 py-4">
-              <p className="font-display text-5xl font-semibold text-(--accent)">{o.result.value}</p>
-              <p className="text-lg text-white/80">{o.result.label}</p>
+            <div data-scrub-step className="mt-4 rounded-2xl bg-white/5 px-5 py-4">
+              <p className="label text-white/60">{researchLabel}</p>
+              <div className="mt-1 flex items-baseline gap-4">
+                <p className="font-display text-5xl font-semibold text-(--accent)">{o.result.value}</p>
+                <p className="text-lg text-white/80">{o.result.label}</p>
+              </div>
+              <p className="mt-2 text-base text-white/55">{o.result.source}</p>
             </div>
           </div>
         </div>
@@ -325,6 +335,49 @@ function Process() {
         </ol>
       </div>
     </ScrollStory>
+  );
+}
+
+function WhyUs() {
+  const w = site.whyUs;
+  return (
+    <section id="why-us" className="scroll-mt-16 bg-navy py-20 story:py-28">
+      <div className="shell space-y-12 story:space-y-16">
+        <div className="reveal grid gap-8 lg:grid-cols-2 lg:gap-16">
+          <div className="space-y-5">
+            <Eyebrow>{w.eyebrow}</Eyebrow>
+            <h2 className={H2}>{w.title}</h2>
+          </div>
+          <div className="space-y-5 lg:pt-12">
+            <p className="font-display text-2xl font-medium text-brand-2">{w.lead}</p>
+            <p className="text-xl text-white/80">{w.about}</p>
+          </div>
+        </div>
+
+        <ul className="grid gap-6 lg:grid-cols-3">
+          {w.reasons.map((r) => (
+            <li key={r.title} className="reveal space-y-4 rounded-3xl border border-line bg-void p-6 story:p-8">
+              <span className="grid size-12 place-items-center rounded-2xl border border-glow/40 bg-glow/10 text-glow">
+                <Icon name={r.icon} className="size-6" />
+              </span>
+              <h3 className="font-display text-2xl font-semibold">{r.title}</h3>
+              <p className="text-lg text-white/75">{r.text}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="reveal hud flex flex-col gap-6 rounded-3xl border border-brand/50 bg-brand/10 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+          <div className="max-w-2xl space-y-3">
+            <Eyebrow>{w.offer.eyebrow}</Eyebrow>
+            <h3 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{w.offer.title}</h3>
+            <p className="text-lg text-white/80">{w.offer.text}</p>
+          </div>
+          <div className="shrink-0">
+            <ButtonLink href={site.cta.href}>{site.cta.label}</ButtonLink>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

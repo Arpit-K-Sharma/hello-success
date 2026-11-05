@@ -11,6 +11,7 @@ export const site = {
     { label: "Outcomes", href: "#outcomes", sections: ["outcomes", "grow", "serve", "run"] },
     { label: "Services", href: "#services", sections: ["services"] },
     { label: "Process", href: "#process", sections: ["process"] },
+    { label: "Why us", href: "#why-us", sections: ["why-us"] },
   ],
   cta: { label: "Book a discovery call", short: "Book a call", href: "#contact" },
 
@@ -89,6 +90,8 @@ export const site = {
     body: "It isn't a people problem. It's a system problem: good staff spending their day as the glue between tools that don't talk to each other.",
     // Inbox mock-up, newest first. Every email is a symptom of disconnected systems.
     inbox: {
+      // Shown on the mock-up so it reads as an illustration, not client data.
+      tag: "Example",
       unreadBase: 38,
       folders: ["Flagged", "Sent", "Drafts", "Archive"],
       alert: "3 customers have waited more than 48 hours",
@@ -102,11 +105,13 @@ export const site = {
         { from: "Website Enquiry", time: "Mon", subject: "Quote request: 40 units", preview: "Customer needs pricing today.", tag: "No reply 2 days", urgent: true, color: "#1868db" },
       ],
     },
+    // Research figures only; every one is credited in `sources` (checked 5 Nov 2026).
     costs: [
-      { stat: "28%", text: "of the working week goes on email and chasing information" },
-      { stat: "5+", text: "disconnected systems in the average mid-sized business" },
-      { stat: "1 in 3", text: "leads never get a follow-up" },
+      { stat: "2 min", text: "The average worker is interrupted by a meeting, email or message every two minutes during core hours." },
+      { stat: "29%", text: "of the apps a business runs are connected to each other." },
+      { stat: "23%", text: "of businesses never answered a website enquiry. The ones that did took 42 hours on average." },
     ],
+    sources: "Sources: Microsoft Work Trend Index 2025; MuleSoft Connectivity Benchmark 2025; Harvard Business Review 2011.",
     closer: ["We fix the process,", "connect your systems", "and automate the rest, with AI where it pays off."],
   },
 
@@ -145,7 +150,38 @@ export const site = {
   itTogether: {
     eyebrow: "Powered by IT Together",
     text: "A new practice from IT Together.",
-    proof: ["IT-qualified engineers", "Major CRM implementation partner"],
+    proof: ["20+ years of sales, operations and CX leadership", "IT-qualified engineers", "Major CRM implementation partner"],
+  },
+
+  // Replaces the old Results section. No numbers until there are real clients.
+  whyUs: {
+    eyebrow: "Why work with us",
+    title: "Built by someone who's run the floor, not just advised it.",
+    lead: "Hello Success is new. The experience behind it isn't.",
+    about:
+      "Hello Success is a consulting practice founded by Mina Azar, co-founder of IT Together. Mina brings 20+ years leading sales, customer experience and operations across automotive, retail, financial services and government. IT Together's engineers build and run the systems. One team diagnoses the problem, designs the fix and wires it in.",
+    reasons: [
+      {
+        icon: "crm" as const,
+        title: "One team, start to finish.",
+        text: "The person who finds the problem stays to build the fix. There's no handover gap between the consultant and the IT provider.",
+      },
+      {
+        icon: "flow" as const,
+        title: "You see the plan before you commit.",
+        text: "Discovery ends with a written plan that has prices and dates on it. It's not a slide deck of theory.",
+      },
+      {
+        icon: "chart" as const,
+        title: "Measured against your numbers.",
+        text: "We agree the measures up front and report against them every month.",
+      },
+    ],
+    offer: {
+      eyebrow: "Founding clients",
+      title: "Be one of our first clients.",
+      text: "We're taking on a small number of founding clients for 2027. You get senior attention from day one, and we get a story we're proud to tell, with your permission.",
+    },
   },
 
   discovery: {

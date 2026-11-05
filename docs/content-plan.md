@@ -17,7 +17,9 @@ Decided: popup results become a non-numeric "What changes" line per service; the
 | 1.3 | Remove the "30+ years" / "thirty years" claim (3 places) | `site.ts` (`itTogether.text`, `itTogether.proof`, `stats`) |
 | 1.4 | Remove the "Major CRM implementation partner" chip; it comes back if he names a real partner | `site.ts` |
 
-## Phase 2: Swap in sourced research stats
+## Phase 2: Swap in sourced research stats ✅ done (local, not yet committed)
+
+The "Every 2 minutes" stat displays as "2 min" so it fits the stat column; the full sentence sits beside it.
 
 | # | Change | Where |
 |---|---|---|
@@ -26,7 +28,9 @@ Decided: popup results become a non-numeric "What changes" line per service; the
 | 2.3 | Outcome stats become **7×**, **80% by 2029** and **9 hours a week**, each with "What the research says" above it and a source credit | `services.ts` (`result` gets `source`), shown in both `OutcomeChapter` and `OutcomeCard` |
 | 2.4 | Show the outcome "problem" line without quote marks or italics; it's our own line | [page.tsx:236](../src/app/page.tsx#L236) |
 
-## Phase 3: New "Why work with us" and About
+## Phase 3: New "Why work with us" and About ✅ done (local, not yet committed)
+
+Decided: the third person About copy (names Mina) is the Why us intro, led by "Hello Success is new. The experience behind it isn't." The IT Together band stays short; its first chip is now "20+ years of sales, operations and CX leadership". The CRM partner chip is still in, pending the CEO.
 
 | # | Change | Where |
 |---|---|---|
